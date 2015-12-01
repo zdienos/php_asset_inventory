@@ -1,29 +1,20 @@
 <?php
 
-/*
- * This is the core config file for the BareBones system
- * 
- * This file sets up the inital global object that retains
- * all of the easy access calls to control includes and 
- * easy module and class inclusion
- *
- * @author: George Russell Pruitt <pruitt.russell@gmail.com>
- *
-**/
-
 // TODO REVAMP totally to pull most of this from database
 
-define("BAREBONES_CORE", true);
+include_once("secure.php");
 
 // set the $CFG global object
 unset($CFG);
 $CFG = new stdClass(); // make into object
 
 // setup debugging
+// turned on by default for dev
 $CFG->debug = false;
 if( (isset($_GET['debug'])) || (isset($_GET['DEBUG'])) ){
     $CFG->debug = true;
 }
+
 
 // create session
 session_start();
@@ -38,17 +29,19 @@ if( $CFG->ostype == "Linux" || $CFG->ostype == "FreeBSD" || $CFG->ostype == "Uni
 
 // set configurations
 $CFG->site_title = "KET IT Asset Inventory";
-//$CFG->dbtype = "";
 
 // need to store these in an non web accessible place
-$CFG->dbname = "";
-$CFG->dbhost = "";
-$CFG->dbuser = "";
-$CFG->dbpass = "";
+
+$CFG->dbtype = KET_ASSET_DBTYPE;
+$CFG->dbhost = KET_ASSET_DBHOST;
+$CFG->dbname = KET_ASSET_DBNAME
+$CFG->dbuser = KET_ASSET_DBUSER;
+$CFG->dbpass = KET_ASSET_DBPASS;
 
 // active directory stuffz
-$CFG->ldap_host = "ldap://dc03.ket.local";
-$CFG->ldap_basedn = "dc=ket,dc=local";
+$CFG->ldap_host = KET_ASSET_LDAP_HOST;
+$CFG->ldap_basedn = KET_ASSET_LDAP_BASEDN;
+
 
 // base values to build on
 $CFG->domain = $_SERVER['SERVER_ADDR'];
@@ -62,8 +55,9 @@ if($CFG->retained) {
 }
 
 // style settings
-$CFG->style = $CFG->url_base."style/";
+$CFG->css = $CFG->url_base."css/";
 $CFG->images = $CFG->url_base."images/";
+$CFG->js = = $CFG->url_base."js/";
 
 
 // security settings
@@ -88,4 +82,5 @@ if(1==1) {
 // system core
 include("core.php");
 
-// closing tag left off intentionally to prevent white space
+
+// closing tag left off intentionally to avoid white space
