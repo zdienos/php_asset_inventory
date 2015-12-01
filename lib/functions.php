@@ -154,5 +154,36 @@ function checkGroupEx($ad, $userdn, $groupdn) {
 }
 
 
+function log_event($user, $asset, $action){
+    global $SITE;
+    $log_sql = "INSERT INTO log (asset_id, user_id, action, time_updated) VALUES ('$asset','$user','$action','".time()."')";
+    $stmt = $SITE->DB->prepare($log_sql);
+    try{
+        $stmt->execute();
+    } catch (PDOException $e) {
+        $SITE->error->add($e);
+        return false;
+    }
+    return true;
+}
+
+
+function get_user_info($acct){
+    global $SITE;
+    $sql = "SELECT * FROM users WHERE username = '$acct'";
+    try{
+        $result = $SITE->DB->query($sql);
+        $count = $result->rowCount();
+    } catch (PDOException $e) {
+        $SITE->error->add($e);
+        return false;
+    }
+    if($count > 0){
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
+
 
 // closing tag left off intentionally to prevent white space
