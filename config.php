@@ -34,7 +34,7 @@ $CFG->site_title = "KET IT Asset Inventory";
 
 $CFG->dbtype = KET_ASSET_DBTYPE;
 $CFG->dbhost = KET_ASSET_DBHOST;
-$CFG->dbname = KET_ASSET_DBNAME
+$CFG->dbname = KET_ASSET_DBNAME;
 $CFG->dbuser = KET_ASSET_DBUSER;
 $CFG->dbpass = KET_ASSET_DBPASS;
 
