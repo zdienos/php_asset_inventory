@@ -10,7 +10,7 @@
  *
 **/
 
-//defined("BAREBONES_CORE") || die("External linking to the file is restricted");
+defined("KET_ASSET") || die("External linking to the file is restricted");
 
 // set the $SITE global object
 unset($SITE);
