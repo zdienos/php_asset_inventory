@@ -15,7 +15,6 @@ if( (isset($_GET['debug'])) || (isset($_GET['DEBUG'])) ){
     $CFG->debug = true;
 }
 
-
 // create session
 session_start();
 
@@ -57,7 +56,7 @@ if($CFG->retained) {
 // style settings
 $CFG->css = $CFG->url_base."css/";
 $CFG->images = $CFG->url_base."images/";
-$CFG->js = = $CFG->url_base."js/";
+$CFG->js = $CFG->url_base."js/";
 
 
 // security settings
