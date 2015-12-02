@@ -9,7 +9,7 @@
  *
 **/
 
-defined("BAREBONES_CORE") || die("External linking to the file is restricted");
+defined("KET_ASSET") || die("External linking to the file is restricted");
 
 // global user object
 // not used yet
@@ -22,7 +22,7 @@ include("site.php");
 include($SITE->lib."functions.php");
 
 // call user stuff
-include("user.php");
+include($SITE->lib."user.php");
 
 /*
 // call the request handler

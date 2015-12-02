@@ -4,7 +4,7 @@
  * @author: George Russell Pruitt <pruitt.russell@gmail.com>
  */
 
-defined("BAREBONES_CORE") || die("External linking to the file is restricted");
+defined("KET_ASSET") || die("External linking to the file is restricted");
 
 switch($CFG->dbtype){
     case "mysql":
