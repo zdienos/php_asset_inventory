@@ -47,17 +47,11 @@ $CFG->domain = $_SERVER['SERVER_ADDR'];
 $CFG->cwd = basename( __DIR__ );
 $CFG->dataroot = __DIR__ . "/";
 $CFG->url_base = $CFG->domain."/";
-$CFG->retained = true;
+$CFG->retained = false;
 
 if($CFG->retained) {
 	$CFG->url_base .= $CFG->cwd."/";
 }
-
-// style settings
-$CFG->css = $CFG->url_base."css/";
-$CFG->images = $CFG->url_base."images/";
-$CFG->js = $CFG->url_base."js/";
-
 
 // security settings
 $CFG->ssl = false;
@@ -67,6 +61,13 @@ if($CFG->ssl) {
 } else {
 	$CFG->url = "http://".$CFG->url_base;
 }
+
+// style settings
+$CFG->css = $CFG->url."css/";
+$CFG->images = $CFG->url."images/";
+$CFG->js = $CFG->url."js/";
+
+
 
 
 	

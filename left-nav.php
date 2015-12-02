@@ -1,15 +1,24 @@
 <?php
-if($USER->logged){
-    ?>
+/*
+<div id="left-nav-wrap">
     <div id="left-nav">
+    <?php
+        if($USER->logged){ ?>
         <ul class="left-nav-menu">
             <li>Home</li>
             <li>Add New</li>
             <li>Browse</li>
             <li>Reports</li>
         </ul>
-    </div>
+        <?php
+    } else { ?>
+        <ul>
+            <li>Home</li>
+        </ul>
     <?php
-}
-
-// no closing tag intentionally
+    }
+    ?>
+    </div>
+</div>
+*/
+?>
