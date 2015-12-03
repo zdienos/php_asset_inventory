@@ -9,11 +9,11 @@
     <title><?php echo $SITE->CFG->site_title; ?></title>
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-
+    <script src="<?php echo $SITE->CFG->js; ?>navigation.js"></script>
 
     <!-- Bootstrap -->
-    <link href="<?php echo $CFG->css; ?>bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="<?php echo $CFG->css; ?>style.css">
+    <link href="<?php echo $SITE->CFG->css; ?>bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo $SITE->CFG->css; ?>style.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,41 +24,31 @@
 
 </head>
 <body>
-	<div id="container">
-		<div id="header-wrap">
-			<div id="header">
-                <div id="logo">
-                    <h3>KET Asset Inventory</h3>
-                    <?php
-                    if($USER->logged){
-                        ?>
-                        <span><a href="logout.php">Logout</a></span>
-                    <?php } ?>
-                </div>
-                <div id="navigation">
-                    <?php
-                        if($USER->logged){ ?>
-                        <ul class="left-nav-menu">
-                            <li>Home</li>
-                            <li>Add New</li>
-                            <li>Browse</li>
-                            <li>Reports</li>
-                        </ul>
-                        <?php
-                    } else { ?>
-                        <ul>
-                            <li>Home</li>
-                        </ul>
-                    <?php
-                    }
+	<div class="container">
+        <header>
+            <div id="logo">
+                <h3>KET Asset Inventory</h3>
+                <?php
+                if($USER->logged){
                     ?>
-                </div>
-
-
+                    <span><a href="logout.php">Logout</a></span>
+                <?php } ?>
             </div>
-		</div>
+            <div id="nav-menu">
+                <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
+                    <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+                <div id="nav-menu-links">
+                    <ul>
+                        <li>Home</li>
+                        <li>Add New</li>
+                        <li>Browse</li>
+                        <li>Reports</li>
+                    </ul>
+                </div>
+            </div>
 
-        <?php include("left-nav.php"); ?>
-        
+        </header>
+
 		<div id="content-wrap">
             <div id="content">
