@@ -12,31 +12,33 @@ body {
 
 #header-wrap {}
 
-#header {
+header {
     background-color: #00ff00;
     height:4em;
     width:100%;
 }
 
-#header h3 {
+header h3 {
     padding: 0;
     margin: 0;
 }
 
-#left-nav-wrap {}
 
-#left-nav {
-    background-color: #00f;
-    float:left;
-    width:15%;
-    height: 20em;
-    padding: 0;
-    margin: 0;
+#nav-menu {
+    float:right;
 }
 
-#left-nav-menu {
-    padding: 0;
-    margin: 0;
+#nav-menu-links {
+    float:right;
+    display:none;
+}
+
+#nav-menu-links ul {
+    list-style-type: none;
+}
+
+#nav-menu-links li {
+    
 }
 
 #content-wrap {}
@@ -46,6 +48,9 @@ body {
     height: 20em;
     background-color: #fe0;
 }
+
+
+
 
 #footer-wrap {}
 
