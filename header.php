@@ -25,30 +25,14 @@
 </head>
 <body>
 	<div class="container">
-        <header>
-            <div id="logo">
-                <h3>KET Asset Inventory</h3>
-                <?php
-                if($USER->logged){
-                    ?>
-                    <span><a href="logout.php">Logout</a></span>
-                <?php } ?>
+        <div id="header">
+            <h3>KET Asset Inventory</h3>
+            <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
+                <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
+            </button>
+            <div id="nav-menu-links">
+                <?php include("left-nav.php"); ?>
             </div>
-            <div id="nav-menu">
-                <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
-                    <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
-                </button>
-                <div id="nav-menu-links">
-                    <ul>
-                        <li>Home</li>
-                        <li>Add New</li>
-                        <li>Browse</li>
-                        <li>Reports</li>
-                    </ul>
-                </div>
-            </div>
-
-        </header>
-
+        </div>
 		<div id="content-wrap">
             <div id="content">
