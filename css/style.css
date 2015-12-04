@@ -3,33 +3,32 @@ body {
     margin: 0;
 }
 
-
-#container {
-    background-color: #cfcfcf;
-    padding: 0;
-    margin: 1%;
-}
-
 #header-wrap {}
 
-header {
+#header {
     background-color: #00ff00;
-    height:4em;
     width:100%;
+    height: 4em;
 }
 
-header h3 {
-    padding: 0;
+#header h3 {
+    float:left;
+    padding: 0.5em;
     margin: 0;
+    font-weight: bolder;
 }
 
-
-#nav-menu {
+#nav-toggle-button {
     float:right;
+    margin: 0.5em;
+    padding: 0.5em;
 }
+
+#nav-menu {}
 
 #nav-menu-links {
-    float:right;
+    background: #0fc;
+    text-align: right;
     display:none;
 }
 
@@ -41,10 +40,13 @@ header h3 {
     
 }
 
-#content-wrap {}
+#content-wrap {
+    padding: 0;
+    margin: 0;
+    top:4em;
+}
 
 #content {
-    margin-left: auto;
     height: 20em;
     background-color: #fe0;
 }
@@ -59,12 +61,6 @@ header h3 {
     width: 100%;
     background-color: #f00;
 }
-
-
-
-
-
-
 
 
 
