@@ -41,6 +41,9 @@ $CFG->dbpass = KET_ASSET_DBPASS;
 $CFG->ldap_host = KET_ASSET_LDAP_HOST;
 $CFG->ldap_basedn = KET_ASSET_LDAP_BASEDN;
 
+// group names
+$CFG->admin_group = KET_ASSET_GROUPS_ADMIN;
+$CFG->edit_group = KET_ASSET_GROUPS_EDIT;
 
 // base values to build on
 $CFG->domain = $_SERVER['SERVER_ADDR'];
