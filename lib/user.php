@@ -28,12 +28,12 @@ if( (isset($_SESSION['uzr']['logged'])) && (!empty($_SESSION['uzr']['logged'])) 
 
 // check for admin group
 if(in_array( $SITE->CFG->admin_group, $USER->session->groups )){
-    $is_admin = TRUE;
+    $USER->is_admin = TRUE;
 }
 
 // check for edit priv
 if(in_array( $SITE->CFG->edit_group, $USER->session->groups )){
-    $can_edit = TRUE;
+    $USER->can_edit = TRUE;
 }
 
 // closing tag left off intentionally to prevent white space
