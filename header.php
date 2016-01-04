@@ -12,6 +12,7 @@
     <script src="<?php echo $SITE->CFG->js; ?>navigation.js"></script>
 
     <!-- Bootstrap -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <link href="<?php echo $SITE->CFG->css; ?>bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo $SITE->CFG->css; ?>style.css">
 
@@ -30,12 +31,6 @@
             <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
                 <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
             </button>
-            <?php if($USER->logged){ 
-            ?>
-            <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
-                <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
-            </button>
-            <?php } ?>
             <div id="nav-menu-links">
                 <?php include("nav-menu.php"); ?>
             </div>
