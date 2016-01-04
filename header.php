@@ -30,8 +30,14 @@
             <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
                 <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
             </button>
+            <?php if($USER->logged){ 
+            ?>
+            <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
+                <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
+            </button>
+            <?php } ?>
             <div id="nav-menu-links">
-                <?php include("left-nav.php"); ?>
+                <?php include("nav-menu.php"); ?>
             </div>
         </div>
 		<div id="content-wrap">
