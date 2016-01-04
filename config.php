@@ -70,9 +70,6 @@ $CFG->css = $CFG->url."css/";
 $CFG->images = $CFG->url."images/";
 $CFG->js = $CFG->url."js/";
 
-
-
-
 	
 //if($CFG->debug) {
 if(1==1) {
