@@ -7,8 +7,6 @@ if($CFG->debug){
     echo debug_dump($SITE, get_var_name($SITE));
 }
 
-require_once('header.php');
-
 // check for login
 if( !$USER->logged ){
     header('login.php');
@@ -42,35 +40,66 @@ if(!empty($_POST)){
 
 // begin building SQL
 $search_sql = "SELECT ";
-$search_sql .= " * ";
+//$search_sql .= " * ";
+
+$search_sql .= "assets.id, ";
+$search_sql .= "assets.asset_tag, ";
+$search_sql .= "assets.serial_number, ";
+$search_sql .= "assets.po_number, ";
+$search_sql .= "assets.type_id, ";
+$search_sql .= "assets.status_id, ";
+$search_sql .= "assets.make, ";
+$search_sql .= "assets.model, ";
+$search_sql .= "assets.service_tag, ";
+$search_sql .= "assets.purchase_date ";
+
+
 $search_sql .= "FROM assets ";
-$search_sql .= "INNER JOIN asset_type ON assets.type_id = asset_type.id ";
-$search_sql .= "INNER JOIN asset_status ON assets.status_id = asset_status.id ";
+//$search_sql .= "INNER JOIN asset_type ON assets.type_id = asset_type.id ";
+//$search_sql .= "INNER JOIN asset_status ON assets.status_id = asset_status.id ";
 
 // build where clause
-$search_sql .= "WHERE ";
+$where_sql = " WHERE ";
 $where_values = array();
 
 // build where array
 foreach($_POST as $key => $value){
-    if( ($key !== "valid") && ( !empty($value) ) ){
-        $where_values[] .= " $key = '$value' ";
+    if( ($key !== "valid") && (!empty($value)) && ($value !== 'Select Below') ){
+        $where_values[] = " $key = '$value' ";
     }
 }
 
 foreach($where_values as $clause){
     if($clause === end($where_values)){
-        $search_sql .= $clause;
+        $where_sql .= $clause;
     } else {
-        $search_sql .= $clause." AND ";
+        $where_sql .= $clause." AND ";
     }
 }
+
+$search_sql .= $where_sql;
 
 // TODO order sql
 $search_sql .= "";
 
 // TODO limit(pagination) sql
 $search_sql .= "";
+
+try {
+    $stmt = $SITE->DB->query($search_sql);
+    //echo $stmt->rowCount();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $SITE->error->add($e);
+}
+
+require_once('header.php');
+
+if($SITE->error->has_errors()){
+    die($SITE->error->display());
+} else {
+    echo generate_html_table($results,"id",FALSE);
+}
 
 require_once('footer.php');
 ?>
