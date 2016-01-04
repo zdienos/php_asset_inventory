@@ -186,4 +186,56 @@ function get_user_info($acct){
 }
 
 
+/**
+ * processes $data array into HTML table
+ *
+ * returns html string
+**/
+function generate_html_table($data,$id_fld = NULL,$print_id = false){
+    global $CFG;
+    $output = "<table class='tablesorter' id='goodTable'>";
+    $output .= "<thead>".PHP_EOL;
+    $output .= "<tr>".PHP_EOL;
+    $output .= "<th>#</th>".PHP_EOL;
+    foreach($data[0] as $key => $value){
+        if($key == $id_fld && $print_id == false){
+            //$row_output .= html_writer::nonempty_tag('th',$key);
+        } elseif($key == $id_fld && $print_id == true){
+            $output .= "<th>$key</th>".PHP_EOL;
+        } elseif($key !== $id_fld && $print_id == false){
+            $output .= "<th>$key</th>".PHP_EOL;
+        }
+    }
+    $output .= "</tr>".PHP_EOL;
+    $output .= "</thead>".PHP_EOL;
+    $output .= "<tbody>".PHP_EOL;
+    $users_count = 0;
+
+    $row_output = "";
+    // TODO convert to use array
+    foreach($data as $row){
+        $users_count++;
+        $row_output .= "<tr>".PHP_EOL;
+        $row_output .= "<th>$users_count</th>".PHP_EOL;
+        foreach($row as $key => $value){
+            if($key == $id_fld && $print_id == false){
+                $tempid = $value;
+                //$row_output .= html_writer::nonempty_tag('td',$value);
+            } elseif($key == $id_fld && $print_id == true){
+                $tempid = $value;
+                $row_output .= "<td>$value</td>".PHP_EOL;
+            } elseif($key !== $id_fld && $print_id == false){
+                $row_output .= "<td>$value</td>".PHP_EOL;
+            }
+        }
+        $row_output .= "</tr>".PHP_EOL;
+    }
+    $output .= $row_output;
+    $output .= "</tbody>".PHP_EOL;
+    $output .= "</table>".PHP_EOL;
+    return $output;
+}
+
+
+
 // closing tag left off intentionally to prevent white space
