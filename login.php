@@ -3,8 +3,8 @@
 // check for authorized post
 if( (isset($_POST['key'])) && (base64_decode($_POST['key']) !== session_id()) ) {
 
-    // replace this with actually error logging
-    die("don't hack me foo!");
+    // TODO replace this with actually error logging
+    die("don't hack me bro!");
     
 } elseif( (isset($_POST['key'])) && (base64_decode($_POST['key']) === session_id()) ) {
 
