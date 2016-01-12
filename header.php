@@ -10,6 +10,8 @@
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
     <script src="<?php echo $SITE->CFG->js; ?>navigation.js"></script>
+    <script src="<?php echo $SITE->CFG->js; ?>jquery.tablesorter.min.js"></script>
+    <script src="<?php echo $SITE->CFG->js; ?>accessible.js"></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
