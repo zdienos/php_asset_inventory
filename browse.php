@@ -9,8 +9,12 @@ if($CFG->debug){
 
 // check for login
 if( !$USER->logged ){
-    header('login.php');
+    header('Location: index.php');
 }
+
+// variable definitions
+$where_sql = "";
+$criteria = false;
 
 // check for post and validate
 if(!empty($_POST)){
@@ -21,6 +25,8 @@ if(!empty($_POST)){
             // possible hack attempt
             // TODO handle scenario
             die("don't hack me bro");
+        } else {
+            $criteria = true;
         }
     } else {
         // possible hack attempt?
@@ -28,15 +34,87 @@ if(!empty($_POST)){
         die("don't hack me bro");
     }
     
-    /*
+}
+
+
+if($criteria !== false){
+    
+    // TODO pagination page numbers
+    //$page = 10 * $_REQUEST['pg'];
+    $page = 0;
+
+    // TODO pagination limit
+    //$limit = $_POST['limit'];
+    $limit = 10;
+    
+    // build where clause
+    $where_sql = " WHERE ";
+    $where_values = array();
+
+    // build where array
     foreach($_POST as $key => $value){
-        echo "<p>$key: <strong>[$value]</strong></p>".PHP_EOL;
+        if( ($key !== "valid") && (!empty($value)) && ($value !== 'Select Below') ){
+            $where_values[] = " $key = '$value' ";
+        }
     }
-    */
+
+    // combine values
+    foreach($where_values as $clause){
+        if($clause === end($where_values)){
+            $where_sql .= $clause;
+        } else {
+            $where_sql .= $clause." AND ";
+        }
+    }
+    
+
     
 } else {
-    die("page missing required components");
+    
+    // no criteria just show last 10
+    
+    // TODO pagination page numbers
+    //$page = 10 * $_REQUEST['pg'];
+    $page = 0;
+
+    // TODO pagination limit
+    //$limit = $_POST['limit'];
+    $limit = 10;
+    
 }
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+// way to vulnerable must replace with something better
+if(!empty($_POST['order'])){
+    $order = $_POST['order'];
+} else {
+    $order = "assets.id";
+}
+
+// way to vulnerable must replace with something better
+if(!empty($_POST['sort'])){
+    $sort = $_POST['sort'];
+} else {
+    $sort = "DESC";
+}
+
+// lets limit 
+$limit_sql = " LIMIT $page, $limit ";
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 // begin building SQL
 $search_sql = "SELECT ";
@@ -48,57 +126,51 @@ $search_sql .= "assets.serial_number, ";
 $search_sql .= "assets.po_number, ";
 $search_sql .= "assets.type_id, ";
 $search_sql .= "assets.status_id, ";
-$search_sql .= "assets.make, ";
-$search_sql .= "assets.model, ";
+$search_sql .= "assets.make_id, ";
+$search_sql .= "assets.model_id, ";
 $search_sql .= "assets.service_tag, ";
 $search_sql .= "assets.purchase_date ";
 
 
 $search_sql .= "FROM assets ";
-//$search_sql .= "INNER JOIN asset_type ON assets.type_id = asset_type.id ";
-//$search_sql .= "INNER JOIN asset_status ON assets.status_id = asset_status.id ";
-
-// build where clause
-$where_sql = " WHERE ";
-$where_values = array();
-
-// build where array
-foreach($_POST as $key => $value){
-    if( ($key !== "valid") && (!empty($value)) && ($value !== 'Select Below') ){
-        $where_values[] = " $key = '$value' ";
-    }
-}
-
-foreach($where_values as $clause){
-    if($clause === end($where_values)){
-        $where_sql .= $clause;
-    } else {
-        $where_sql .= $clause." AND ";
-    }
-}
+$search_sql .= "INNER JOIN asset_types ON assets.type_id = asset_types.id ";
+$search_sql .= "INNER JOIN asset_statuses ON assets.status_id = asset_statuses.id ";
+$search_sql .= "INNER JOIN asset_models ON assets.model_id = asset_models.id ";
+$search_sql .= "INNER JOIN asset_makes ON assets.make_id = asset_makes.id ";
 
 $search_sql .= $where_sql;
 
 // TODO order sql
-$search_sql .= "";
+$search_sql .= " ORDER BY $order $sort ";
 
 // TODO limit(pagination) sql
-$search_sql .= "";
+$search_sql .= $limit_sql;
 
+// attempt to execute the search
 try {
     $stmt = $SITE->DB->query($search_sql);
-    //echo $stmt->rowCount();
+    $results_count = $stmt->rowCount();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $SITE->error->add($e);
 }
 
+
 require_once('header.php');
 
 if($SITE->error->has_errors()){
-    die($SITE->error->display());
+    // crap i guess lets show them
+    echo $SITE->error->display();
 } else {
-    echo generate_html_table($results,"id",FALSE);
+    // yay no errors proceed
+    $table_out = generate_html_table($results,"id",FALSE);
+}
+
+if($results_count > 0){
+    echo "<h3>Browsing $results_count Result(s)</h3>";
+    echo $table_out;
+} else {
+    echo "<h3>No results found</h3>";
 }
 
 require_once('footer.php');
