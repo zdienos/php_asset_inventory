@@ -238,4 +238,77 @@ function generate_html_table($data,$id_fld = NULL,$print_id = false){
 
 
 
+function get_asset_types(){
+    global $SITE;
+    $types_sql = "SELECT * FROM asset_types ORDER BY type ASC";
+    try{
+        $result = $SITE->DB->query($types_sql);
+        $count = $result->rowCount();
+    } catch (PDOException $e) {
+        $SITE->error->add($e);
+        return false;
+    }
+    if($count > 0){
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
+
+
+function get_asset_statuses(){
+    global $SITE;
+    $status_sql = "SELECT * FROM asset_statuses ORDER BY status ASC";
+    try{
+        $result = $SITE->DB->query($status_sql);
+        $count = $result->rowCount();
+    } catch (PDOException $e) {
+        $SITE->error->add($e);
+        return false;
+    }
+    if($count > 0){
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
+
+
+function get_asset_makes(){
+    global $SITE;
+    $make_sql = "SELECT * FROM asset_makes ORDER BY make ASC";
+    try{
+        $result = $SITE->DB->query($make_sql);
+        $count = $result->rowCount();
+    } catch (PDOException $e) {
+        $SITE->error->add($e);
+        return false;
+    }
+    if($count > 0){
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
+
+
+
+function get_asset_models(){
+    global $SITE;
+    $model_sql = "SELECT * FROM asset_models ORDER BY model ASC";
+    try{
+        $result = $SITE->DB->query($model_sql);
+        $count = $result->rowCount();
+    } catch (PDOException $e) {
+        $SITE->error->add($e);
+        return false;
+    }
+    if($count > 0){
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
+
+
 // closing tag left off intentionally to prevent white space
