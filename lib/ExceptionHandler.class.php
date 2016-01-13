@@ -37,9 +37,9 @@ class ExceptionHandler {
 	public function display(){
 		$output = '';
 		foreach($this->errors as $error){
-			$output .= "<span class='error'>The following file: <strong>".$error->getFile()."</strong>";
-			$output .= " produced an exception on line: <strong>".$error->getLine()."</strong>";
-			$output .= " with the following message: <strong>".$error->getMessage()."</strong></span>";
+			$output .= "<p><span class='error'>Error Code: <strong>".$error->code."</strong> ".PHP_EOL."The following file: <strong>".$error->file."</strong>";
+			$output .= " produced an exception on line: <strong>".$error->line."</strong>";
+			$output .= " with the following message: <strong>".$error->message."</strong></span></p>";
 		}
 		return $output;
 	}
