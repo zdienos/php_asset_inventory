@@ -79,24 +79,22 @@ foreach($models as $model){
     }
     $model_options .= ">".$model['model']."</option>".PHP_EOL;
 }
+?><?php require_once('header.php'); ?>
 
+<input type="hidden" name="id" value="<?php echo $id ?>" />
 
-?>
-
-
-<?php require_once('header.php'); ?>
 <p>
-    <label for="">Asset Tag #</label>
+    <label for="asset_tag">Asset Tag #</label>
     <input type="text" name="asset_tag" id="asset_tag" value="<?php echo $asset['asset_tag']; ?>" />
 </p>
 
 <p>
-    <label for="">Serial #</label>
+    <label for="serial_number">Serial #</label>
     <input type="text" name="serial_number" id="serial_number" value="<?php echo $asset['serial_number']; ?>" />
 </p>
 
 <p>
-    <label for="">Purchase Order</label>
+    <label for="po_number">Purchase Order</label>
     <input type="text" name="po_number" id="po_number" value="<?php echo $asset['po_number']; ?>" />
 </p>
 
