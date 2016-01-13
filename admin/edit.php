@@ -7,19 +7,28 @@ if($CFG->debug){
     echo debug_dump($SITE, get_var_name($SITE));
 }
 
-
-
 // check for login
 if( (isset($USER->logged)) && ($USER->logged !== true) ){
     header('Location: index.php');
 }
 
-// check for passed id
-if(!isset($_REQUEST['id'])){
-    $id = 'new';
-} elseif ((isset($_REQUEST['id'])) && (!empty($_REQUEST['id']))) {
-    $id = $_REQUEST['id'];
+
+if( ($_POST) && (!empty($_POST['v'])) && ($_POST['v'] === $USER->key) ){// check for post
+
+    // post exists process it
+    
+    
+} elseif ($_GET){
+// check for get
+    // check for passed id
+    if(!isset($_GET['id'])){
+        $id = 'new';
+    } elseif ((isset($_GET['id'])) && (!empty($_GET['id']))) {
+        $id = $_GET['id'];
+    }
 }
+
+
 
 if( (isset($id)) && ($id !== "new") ){
     // go grab the record
@@ -82,6 +91,7 @@ foreach($models as $model){
 ?><?php require_once('header.php'); ?>
 
 <input type="hidden" name="id" value="<?php echo $id ?>" />
+<input type="hidden" name="v" value="<?php echo base64_encode($USER->key); ?>" />
 
 <p>
     <label for="asset_tag">Asset Tag #</label>
