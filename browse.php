@@ -48,7 +48,7 @@ if($criteria !== false){
     $limit = 10;
     
     // build where clause
-    $where_sql = " WHERE ";
+    $where_conditions = "";
     $where_values = array();
 
     // build where array
@@ -61,10 +61,14 @@ if($criteria !== false){
     // combine values
     foreach($where_values as $clause){
         if($clause === end($where_values)){
-            $where_sql .= $clause;
+            $where_conditions .= $clause;
         } else {
-            $where_sql .= $clause." AND ";
+            $where_conditions .= $clause." AND ";
         }
+    }
+    
+    if(!empty($where_conditions)){
+        $where_sql = " WHERE ".$where_conditions;
     }
     
 
