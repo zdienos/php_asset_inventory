@@ -10,24 +10,11 @@
 **/
 
 function custom_error_handler($errno, $errstr, $errfile, $errline) {
+    
     global $SITE;
-    
-    $e = new stdClass();
-    
-    if (!(error_reporting() & $errno)) {
-        // This error code is not included in error_reporting
-        return;
-    }
 
     switch ($errno) {
         case E_USER_ERROR:
-            /*
-            echo "<b>My ERROR</b> [$errno] $errstr<br />\n";
-            echo "  Fatal error on line $errline in file $errfile";
-            echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
-            echo "Aborting...<br />\n";
-            exit(1);
-            */
             $e->code = $errno;
             $e->message = $errstr;
             $e->file = $errfile;
@@ -44,10 +31,14 @@ function custom_error_handler($errno, $errstr, $errfile, $errline) {
             break;
 
         default:
-            $e->code = $errno;
-            $e->message = $errstr;
-            $e->file = $errfile;
-            $e->line = $errline;
+            //$e->code = $errno;
+            $e->code = $e->getCode();
+            //$e->message = $errstr;
+            $e->message = $e->getMessage();
+            //$e->file = $errfile;
+            $e->file = $e->getFile();
+            //$e->line = $errline;
+            $e->line = $e->getLine();
             $SITE->error->add($e);
             break;
     }
@@ -134,6 +125,10 @@ function debug_dump($data,$name = false,$skip_null = false,$nested=false){
 }
 
 
+
+////////////////////////////////////////////////////////////////
+// active directory functions
+////////////////////////////////////////////////////////////////
 /*
 * This function searchs in LDAP tree ($ad -LDAP link identifier)
 * entry specified by samaccountname and returns its DN or epmty
@@ -204,26 +199,18 @@ function log_event($user, $asset, $action){
     global $SITE;
     $log_sql = "INSERT INTO log (asset_id, user_id, action, time_updated) VALUES ('$asset','$user','$action','".time()."')";
     $stmt = $SITE->DB->prepare($log_sql);
-    try{
-        $stmt->execute();
-    } catch (PDOException $e) {
-        $SITE->error->add($e);
-        return false;
-    }
+    if(!$stmt->execute()){
+		return false;
+	}
     return true;
 }
 
 
 function get_user_info($acct){
-    global $SITE;
-    $sql = "SELECT * FROM users WHERE username = '$acct'";
-    try{
-        $result = $SITE->DB->query($sql);
-        $count = $result->rowCount();
-    } catch (PDOException $e) {
-        $SITE->error->add($e);
-        return false;
-    }
+	global $SITE;
+	$sql = "SELECT * FROM users WHERE username = '$acct'";
+	$result = $SITE->DB->query($sql);
+	$count = $result->rowCount();
     if($count > 0){
         return $result->fetchAll(PDO::FETCH_ASSOC);
     } else {
@@ -283,17 +270,11 @@ function generate_html_table($data,$id_fld = NULL,$print_id = false){
 }
 
 
-
 function get_asset_types(){
     global $SITE;
     $types_sql = "SELECT * FROM asset_types ORDER BY type ASC";
-    try{
-        $result = $SITE->DB->query($types_sql);
-        $count = $result->rowCount();
-    } catch (PDOException $e) {
-        $SITE->error->add($e);
-        return false;
-    }
+    $result = $SITE->DB->query($types_sql);
+	$count = $result->rowCount();
     if($count > 0){
         return $result->fetchAll(PDO::FETCH_ASSOC);
     } else {
@@ -303,15 +284,10 @@ function get_asset_types(){
 
 
 function get_asset_statuses(){
-    global $SITE;
-    $status_sql = "SELECT * FROM asset_statuses ORDER BY status ASC";
-    try{
-        $result = $SITE->DB->query($status_sql);
-        $count = $result->rowCount();
-    } catch (PDOException $e) {
-        $SITE->error->add($e);
-        return false;
-    }
+	global $SITE;
+	$status_sql = "SELECT * FROM asset_statuses ORDER BY status ASC";
+	$result = $SITE->DB->query($status_sql);
+	$count = $result->rowCount();
     if($count > 0){
         return $result->fetchAll(PDO::FETCH_ASSOC);
     } else {
@@ -321,40 +297,57 @@ function get_asset_statuses(){
 
 
 function get_asset_makes(){
-    global $SITE;
-    $make_sql = "SELECT * FROM asset_makes ORDER BY make ASC";
-    try{
-        $result = $SITE->DB->query($make_sql);
-        $count = $result->rowCount();
-    } catch (PDOException $e) {
-        $SITE->error->add($e);
-        return false;
-    }
-    if($count > 0){
-        return $result->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        return false;
-    }
+	global $SITE;
+	$make_sql = "SELECT * FROM asset_makes ORDER BY make ASC";
+	$result = $SITE->DB->query($make_sql);
+	$count = $result->rowCount();
+	if($count > 0){
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+	} else {
+		return false;
+	}
 }
-
 
 
 function get_asset_models(){
     global $SITE;
     $model_sql = "SELECT * FROM asset_models ORDER BY model ASC";
-    try{
-        $result = $SITE->DB->query($model_sql);
-        $count = $result->rowCount();
-    } catch (PDOException $e) {
-        $SITE->error->add($e);
-        return false;
-    }
-    if($count > 0){
-        return $result->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        return false;
-    }
+	$result = $SITE->DB->query($model_sql);
+	$count = $result->rowCount();
+	if($count > 0){
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+	} else {
+		return false;
+	}
 }
 
+
+function get_asset($id){
+	global $SITE;
+
+	$asset_sql = "SELECT * FROM assets WHERE id = ?";
+	$stmt = $SITE->DB->prepare($asset_sql);
+	$stmt->execute(array($id));
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if(sizeof($results) < 1){
+		return false;
+	} else {
+		$asset = $results[0];
+	}
+	return $asset;
+}
+
+
+function build_options_html($options,$label,$id = NULL){
+    $output = "";
+    foreach($options as $option){
+        $output .= "<option value='".$option['id']."'";
+        if( $option['id'] === $id ){
+            $output .= " selected";
+        }
+        $output .= ">".$option[$label]."</option>".PHP_EOL;
+    }
+    return $output;
+}
 
 // closing tag left off intentionally to prevent white space
