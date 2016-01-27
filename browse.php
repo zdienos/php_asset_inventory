@@ -124,16 +124,31 @@ $limit_sql = " LIMIT $page, $limit ";
 $search_sql = "SELECT ";
 //$search_sql .= " * ";
 
+/*
 $search_sql .= "assets.id, ";
-$search_sql .= "assets.asset_tag, ";
-$search_sql .= "assets.serial_number, ";
-$search_sql .= "assets.po_number, ";
-$search_sql .= "assets.type_id, ";
+$search_sql .= "assets.asset_tag AS 'Tag #', ";
+$search_sql .= "assets.serial_number AS 'SN', ";
+$search_sql .= "assets.po_number as 'PO', ";
+$search_sql .= "asset_types.type as 'Type', ";
 $search_sql .= "assets.status_id, ";
 $search_sql .= "assets.make_id, ";
 $search_sql .= "assets.model_id, ";
 $search_sql .= "assets.service_tag, ";
-$search_sql .= "assets.purchase_date ";
+$search_sql .= "assets.purchase_date, ";
+$search_sql .= "assets.surplus_date ";
+*/
+
+$search_sql .= "assets.id, ";
+$search_sql .= "assets.asset_tag as 'Asset Tag', ";
+$search_sql .= "assets.serial_number as 'S/N', ";
+$search_sql .= "assets.po_number as 'PO', ";
+$search_sql .= "asset_types.type as 'Type', ";
+$search_sql .= "asset_statuses.status as 'Status', ";
+$search_sql .= "asset_makes.make as 'Make', ";
+$search_sql .= "asset_models.model as 'Model', ";
+$search_sql .= "assets.service_tag as 'Service Tag', ";
+$search_sql .= "assets.purchase_date as 'Purchased', ";
+$search_sql .= "assets.surplus_date as 'Surplused' ";
 
 
 $search_sql .= "FROM assets ";
@@ -151,14 +166,13 @@ $search_sql .= " ORDER BY $order $sort ";
 $search_sql .= $limit_sql;
 
 // attempt to execute the search
-try {
-    $stmt = $SITE->DB->query($search_sql);
-    $results_count = $stmt->rowCount();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    $SITE->error->add($e);
-}
 
+$stmt = $SITE->DB->query($search_sql);
+$results_count = $stmt->rowCount();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if($results_count < 1){
+	trigger_error("Records not found problem with DB?", E_USER_ERROR);
+}
 
 require_once('header.php');
 
