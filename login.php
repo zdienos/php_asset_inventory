@@ -64,15 +64,12 @@ if( (isset($_POST['key'])) && (base64_decode($_POST['key']) !== session_id()) ) 
         $stmt->bindValue(':user', $username, PDO::PARAM_STR);
         $stmt->bindValue(':first', $firstname, PDO::PARAM_STR);
         $stmt->bindValue(':last', $lastname, PDO::PARAM_STR);
-        $stmt->bindValue(':time', $creation_time, PDO::PARAM_INT);
-        
-        try {
-            $stmt->execute();
-        } catch (PDOException $e) {
-            die(var_dump($e));
-            $SITE->error->add($e);
+        $stmt->bindValue(':time', $creation_time, PDO::PARAM_INT);      
+        if(!$stmt->execute()){
+        	trigger_error("Couldn't write to DB.", E_USER_ERROR);
         }
 
+        
         // get user id
         $USER->id = $SITE->DB->lastInsertId();
         
