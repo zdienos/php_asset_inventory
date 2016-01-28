@@ -18,12 +18,13 @@ if( (isset($USER->logged)) && ($USER->logged !== true) ){
 
 // check for post
 if( ($_POST) ){ // check for post
+
     if( (!empty($_POST['v'])) && (base64_decode($_POST['v']) !== $USER->key) ){ // check for malicious activity
         die("don't hack me brah!".PHP_EOL);
     }
     
     if( isset($_POST['id']) && ($_POST['id'] !== '0') ){
-        
+	
         $id = intval($_POST['id']);
         $asset = get_asset($id);
         if(!$asset){
@@ -105,7 +106,7 @@ if( ($_POST) ){ // check for post
             }
         }
         
-        $update_sql = substr($update_sql,0,strlen($update_sql)-1);
+        $update_sql = substr($update_sql,0,strlen($update_sql)-2);
         
         $update_sql .= " WHERE id = ? ";
         $update_values[] = $id;
@@ -114,6 +115,8 @@ if( ($_POST) ){ // check for post
         
         $action = "inserted new asset";
         $update_sql = "INSERT INTO assets ";
+		$update_flds = "";
+		$update_vals = "";
         foreach($sanitized as $fld_arr){
             $update_flds .= $fld_arr['name'].", ";
             $update_vals .= "?, ";
@@ -128,26 +131,37 @@ if( ($_POST) ){ // check for post
     
     // update / insert data
 
-    
-    $stmt = $SITE->DB->prepare($update_sql);
-    $stmt->execute($update_values);
-    if($stmt->rowCount < 1){
+	try{
+    	$stmt = $SITE->DB->prepare($update_sql);
+		$stmt->execute($update_values);
+	} catch (Exception $e){
+		die($e->getMessage());
+	}
+	
+    /*if($stmt->execute($update_values) == false){
     	trigger_error("Unable to write to database.", E_USER_ERROR);
-    }
-        
+    }*/
     
-
     if( $SITE->error->has_errors() ){
-        require_once($SITE->CFG->url."header.php");
+        require_once($SITE->CFG->dataroot."header.php");
         $SITE->error->display();
-        require_once($SITE->CFG->url."footer.php");
+        require_once($SITE->CFG->dataroot."footer.php");
     }
 
     // log it
-    log_event($USER->session->id, $asset['id'], $action);
-    
+    if($action == "inserted new asset"){
+		$new_id = $SITE->DB->lastInsertId();
+		log_event($USER->session->id, $new_id, $action);
+	} else {
+		log_event($USER->session->id, $asset['id'], $action);
+	}
+	
     // redirect?
-    header("Location: ".$SITE->CFG->url."browse.php");
+    if( (!empty($_POST["submit"])) && ($_POST["submit"] !== "Save") ){
+		header("Location: ".$SITE->CFG->url."admin/edit.php");
+	} else {
+		header("Location: ".$SITE->CFG->url."browse.php");
+	}
     die("should have redirected.");
     
 } elseif ( ($_GET) && (!empty($_GET['id'])) ){ // no post check for get
@@ -207,7 +221,7 @@ $models = get_asset_models();
 $model_options = "<option>Select Below</option>";
 foreach($models as $model){
     $model_options .= "<option value='".$model['id']."'";
-    if( (isset($asset)) && ($model['id'] === $asset['make_id']) ){
+    if( (isset($asset)) && ($model['id'] === $asset['model_id']) ){
         $model_options .= " selected";
     }
     $model_options .= ">".$model['model']."</option>".PHP_EOL;
@@ -234,17 +248,17 @@ if($SITE->error->has_errors()){
 
         <p>
             <label for="asset_tag">Asset Tag #</label>
-            <input type="text" name="asset_tag" id="asset_tag" value="<?php echo $asset['asset_tag']; ?>" />
+            <input type="text" name="asset_tag" id="asset_tag" value="<?php echo @$asset['asset_tag']; ?>" />
         </p>
 
         <p>
             <label for="serial_number">Serial #</label>
-            <input type="text" name="serial_number" id="serial_number" value="<?php echo $asset['serial_number']; ?>" />
+            <input type="text" name="serial_number" id="serial_number" value="<?php echo @$asset['serial_number']; ?>" />
         </p>
 
         <p>
             <label for="po_number">Purchase Order</label>
-            <input type="text" name="po_number" id="po_number" value="<?php echo $asset['po_number']; ?>" />
+            <input type="text" name="po_number" id="po_number" value="<?php echo @$asset['po_number']; ?>" />
         </p>
 
         <p>
@@ -277,21 +291,22 @@ if($SITE->error->has_errors()){
 
         <p>
             <label for="">Service Tag #</label>
-            <input type="text" name="service_tag" id="service_tag" value="<?php echo $asset['service_tag']; ?>" />
+            <input type="text" name="service_tag" id="service_tag" value="<?php echo @$asset['service_tag']; ?>" />
         </p>
 
         <p>
             <label for="">Purchase Date</label>
-            <input type="text" name="purchase_date" id="purchase_date" value="<?php echo $asset['purchase_date']; ?>" />
+            <input type="text" name="purchase_date" id="purchase_date" value="<?php echo @$asset['purchase_date']; ?>" />
         </p>
         
         <p>
             <label for="">Surplus Date</label>
-            <input type="text" name="surplus_date" id="surplus_date" value="<?php echo $asset['surplus_date']; ?>" />
+            <input type="text" name="surplus_date" id="surplus_date" value="<?php echo @$asset['surplus_date']; ?>" />
         </p>
         
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" name="submit" value="Save" />
+			<input type="submit" name="submit" value="Save & Add New" />
         </p>
         
     </form>
