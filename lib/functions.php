@@ -195,14 +195,18 @@ function checkGroupEx($ad, $userdn, $groupdn) {
 }
 
 
-function log_event($user, $asset, $action){
+function get_user_last_login($user){
     global $SITE;
-    $log_sql = "INSERT INTO log (asset_id, user_id, action, time_updated) VALUES ('$asset','$user','$action','".time()."')";
-    $stmt = $SITE->DB->prepare($log_sql);
-    if(!$stmt->execute()){
-		return false;
-	}
-    return true;
+    //$sql = "SELECT FROM_UNIXTIME(time_updated) FROM log WHERE user_id = ? AND action = 'login' ORDER BY time_updated DESC LIMIT 0,1";
+    $sql = "SELECT time_updated FROM log WHERE user_id = ? AND action = 'login' ORDER BY time_updated DESC LIMIT 0,1";
+    $stmt = $SITE->DB->prepare($sql);
+    $stmt->execute(array($user));
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if(count($result) < 1){
+        return false;
+    } else {
+        return $result[0]['time_updated'];
+    }
 }
 
 
@@ -219,17 +223,45 @@ function get_user_info($acct){
 }
 
 
+function get_new_assets($user,$count = false){
+	global $SITE;
+	$last_login = get_user_last_login($user);
+	$sql = "SELECT * FROM assets WHERE creation_date >= '$last_login' ORDER BY creation_date DESC";
+	$result = $SITE->DB->query($sql);
+	if(count($result) < 1){
+		return false;
+	} else {
+		if($count){
+			return count($result);
+		} else {
+			return $result;
+		}
+	}
+}
+
+
+function log_event($user, $asset, $action){
+    global $SITE;
+    $log_sql = "INSERT INTO log (asset_id, user_id, action, time_updated) VALUES ('$asset','$user','$action','".time()."')";
+    $stmt = $SITE->DB->prepare($log_sql);
+    if(!$stmt->execute()){
+		return false;
+	}
+    return true;
+}
+
+
 /**
  * processes $data array into HTML table
  *
  * returns html string
 **/
 function generate_html_table($data,$id_fld = NULL,$print_id = false){
-    global $CFG;
+    global $SITE;
     $output = "<table class='tablesorter' id='goodTable'>";
     $output .= "<thead>".PHP_EOL;
     $output .= "<tr>".PHP_EOL;
-    $output .= "<th>#</th>".PHP_EOL;
+    $output .= "<th>&nbsp;</th>".PHP_EOL;
     foreach($data[0] as $key => $value){
         if($key == $id_fld && $print_id == false){
             //$row_output .= html_writer::nonempty_tag('th',$key);
@@ -256,9 +288,11 @@ function generate_html_table($data,$id_fld = NULL,$print_id = false){
                 //$row_output .= html_writer::nonempty_tag('td',$value);
             } elseif($key == $id_fld && $print_id == true){
                 $tempid = $value;
-                $row_output .= "<td>$value</td>".PHP_EOL;
+                //$row_output .= "<td>$value</td>".PHP_EOL;
+				$row_output .= "<td><a href='".$SITE->CFG->url."admin/edit.php?id=".$row[$id_fld]."'>$value</a></td>".PHP_EOL;
             } elseif($key !== $id_fld && $print_id == false){
-                $row_output .= "<td>$value</td>".PHP_EOL;
+                //$row_output .= "<td>$value</td>".PHP_EOL;
+				$row_output .= "<td><a href='".$SITE->CFG->url."admin/edit.php?id=".$row[$id_fld]."'>$value</a></td>".PHP_EOL;
             }
         }
         $row_output .= "</tr>".PHP_EOL;

@@ -17,6 +17,6 @@ switch($CFG->dbtype){
 }
 
 $DB = new PDO($dsn, $CFG->dbuser, $CFG->dbpass);
-
+$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // closing tag left off intentionally to prevent white space
