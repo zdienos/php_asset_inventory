@@ -35,7 +35,7 @@ if(!empty($_POST)){
     }
     
 }
-
+	
 
 if($criteria !== false){
     
@@ -54,7 +54,7 @@ if($criteria !== false){
     // build where array
     foreach($_POST as $key => $value){
         if( ($key !== "valid") && (!empty($value)) && ($value !== 'Select Below') ){
-            $where_values[] = " $key = '$value' ";
+            $where_values[] = " assets.$key = '$value' ";
         }
     }
 
@@ -152,10 +152,10 @@ $search_sql .= "assets.surplus_date as 'Surplused' ";
 
 
 $search_sql .= "FROM assets ";
-$search_sql .= "INNER JOIN asset_types ON assets.type_id = asset_types.id ";
-$search_sql .= "INNER JOIN asset_statuses ON assets.status_id = asset_statuses.id ";
-$search_sql .= "INNER JOIN asset_models ON assets.model_id = asset_models.id ";
-$search_sql .= "INNER JOIN asset_makes ON assets.make_id = asset_makes.id ";
+$search_sql .= "LEFT JOIN asset_types ON assets.type_id = asset_types.id ";
+$search_sql .= "LEFT JOIN asset_statuses ON assets.status_id = asset_statuses.id ";
+$search_sql .= "LEFT JOIN asset_models ON assets.model_id = asset_models.id ";
+$search_sql .= "LEFT JOIN asset_makes ON assets.make_id = asset_makes.id ";
 
 $search_sql .= $where_sql;
 
@@ -166,30 +166,42 @@ $search_sql .= " ORDER BY $order $sort ";
 $search_sql .= $limit_sql;
 
 // attempt to execute the search
-
-$stmt = $SITE->DB->query($search_sql);
-$results_count = $stmt->rowCount();
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+try {
+	$stmt = $SITE->DB->query($search_sql);
+	$results_count = $stmt->rowCount();
+	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+	trigger_error($e->getMessage());
+}
+/*
 if($results_count < 1){
 	trigger_error("Records not found problem with DB?", E_USER_ERROR);
 }
+*/
 
 require_once('header.php');
+
+echo "<!-- $search_sql -->";
 
 if($SITE->error->has_errors()){
     // crap i guess lets show them
     echo $SITE->error->display();
 } else {
     // yay no errors proceed
-    $table_out = generate_html_table($results,"id",FALSE);
+	if($results_count > 0){
+		$table_out = generate_html_table($results,"id",FALSE);
+		echo "<h3>Browsing $results_count Result(s)</h3>";
+		echo $table_out;
+	} else {
+		echo "<h3>No results found</h3>";
+		if($SITE->CFG->debug){
+			echo "<p>$search_sql</p>";
+		}
+	}
+    
 }
 
-if($results_count > 0){
-    echo "<h3>Browsing $results_count Result(s)</h3>";
-    echo $table_out;
-} else {
-    echo "<h3>No results found</h3>";
-}
+
 
 require_once('footer.php');
 ?>
