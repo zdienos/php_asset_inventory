@@ -1,0 +1,1 @@
+<?php define("KET_ASSET_VERSION", 0.1.0); ?>
