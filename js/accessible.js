@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 	// make the good table
 	$("#goodTable")
-		.tablesorter({widgets: ['addA11y']})
+		.tablesorter({widgets: ['addA11y','zebra']})
 		.wrap('<div role="application">') // wrap it in a DIV with a role of application
 		.attr("role", "grid") // add role of grid to the table itself
 		.attr("aria-readonly", "true")  // mark the grid as readonly (because none of the data is editable
