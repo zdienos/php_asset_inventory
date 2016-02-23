@@ -19,7 +19,7 @@ if( (isset($USER->logged)) && ($USER->logged !== true) ){
 // check for post
 if( ($_POST) ){ // check for post
 
-    if( (!empty($_POST['v'])) && (base64_decode($_POST['v']) !== $USER->key) ){ // check for malicious activity
+    if( (!empty($_POST['v'])) && ($_POST['v'] !== $USER->key) ){ // check for malicious activity
         die("don't hack me brah!".PHP_EOL);
     }
     
@@ -235,81 +235,85 @@ if($SITE->error->has_errors()){
     echo $SITE->error->display();
 } else {
     ?>
-    <form method="post" action="<?php echo $SITE->CFG->url; ?>admin/edit.php">
-        
-        <?php
-        if($id){
-            ?>
-            <input type="hidden" name="id" value="<?php echo $id ?>" />
-            <?php
-        }
-        ?>
-        <input type="hidden" name="v" value="<?php echo base64_encode($USER->key); ?>" />
+    <form id="assetForm" name="assetForm" role="form" method="post" action="<?php echo $SITE->CFG->url; ?>admin/edit.php">
+		<div class="form-group">
+			<?php
+			if($id){
+				?>
+				<input type="hidden" name="id" value="<?php echo $id ?>" />
+				<?php
+			}
+			?>
+			<input type="hidden" name="v" value="<?php echo $USER->key; ?>" />
 
-        <p>
-            <label for="asset_tag">Asset Tag #</label>
-            <input type="text" name="asset_tag" id="asset_tag" value="<?php echo @$asset['asset_tag']; ?>" />
-        </p>
+			<p>
+				<label for="asset_tag">Asset Tag #</label>
+				<input type="text" name="asset_tag" id="asset_tag" value="<?php echo @$asset['asset_tag']; ?>" class=".form-control" />
+			</p>
 
-        <p>
-            <label for="serial_number">Serial #</label>
-            <input type="text" name="serial_number" id="serial_number" value="<?php echo @$asset['serial_number']; ?>" />
-        </p>
+			<p>
+				<label for="serial_number">Serial #</label>
+				<input type="text" name="serial_number" id="serial_number" value="<?php echo @$asset['serial_number']; ?>" class=".form-control" />
+			</p>
 
-        <p>
-            <label for="po_number">Purchase Order</label>
-            <input type="text" name="po_number" id="po_number" value="<?php echo @$asset['po_number']; ?>" />
-        </p>
+			<p>
+				<label for="po_number">Purchase Order</label>
+				<input type="text" name="po_number" id="po_number" value="<?php echo @$asset['po_number']; ?>" class=".form-control" />
+			</p>
 
-        <p>
-            <label for="type_id">Type</label>
-            <select name="type_id" id="type_id">
-                <?php echo $type_options; ?>
-            </select>
-        </p>
+			<p>
+				<label for="type_id">Type</label>
+				<select name="type_id" id="type_id" class=".form-control">
+					<?php echo $type_options; ?>
+				</select>
+			</p>
 
-        <p>
-            <label for="status_id">Status</label>
-            <select name="status_id" id="status_id">
-                <?php echo $status_options; ?>
-            </select>
-        </p>
+			<p>
+				<label for="status_id">Status</label>
+				<select name="status_id" id="status_id" class=".form-control">
+					<?php echo $status_options; ?>
+				</select>
+			</p>
 
-        <p>
-            <label for="">Make</label>
-            <select name="make_id" id="make_id">
-                <?php echo $make_options; ?>
-            </select>
-        </p>
+			<p>
+				<label for="">Make</label>
+				<select name="make_id" id="make_id" class=".form-control">
+					<?php echo $make_options; ?>
+				</select>
+			</p>
 
-        <p>
-            <label for="">Model</label>
-            <select name="model_id" id="model_id">
-                <?php echo $model_options; ?>
-            </select>
-        </p>
+			<p>
+				<label for="">Model</label>
+				<select name="model_id" id="model_id" class=".form-control">
+					<?php echo $model_options; ?>
+				</select>
+			</p>
 
-        <p>
-            <label for="">Service Tag #</label>
-            <input type="text" name="service_tag" id="service_tag" value="<?php echo @$asset['service_tag']; ?>" />
-        </p>
+			<p>
+				<label for="">Service Tag #</label>
+				<input type="text" name="service_tag" id="service_tag" value="<?php echo @$asset['service_tag']; ?>" class=".form-control" />
+			</p>
 
-        <p>
-            <label for="">Purchase Date</label>
-            <input type="text" name="purchase_date" id="purchase_date" value="<?php echo @$asset['purchase_date']; ?>" />
-        </p>
-        
-        <p>
-            <label for="">Surplus Date</label>
-            <input type="text" name="surplus_date" id="surplus_date" value="<?php echo @$asset['surplus_date']; ?>" />
-        </p>
-        
-        <p>
-            <input type="submit" name="submit" value="Save" />
-			<input type="submit" name="submit" value="Save & Add New" />
-        </p>
-        
+			<p>
+				<label for="">Purchase Date</label>
+				<input type="text" name="purchase_date" id="purchase_date" value="<?php echo @$asset['purchase_date']; ?>" class=".form-control" />
+			</p>
+
+			<p>
+				<label for="">Surplus Date</label>
+				<input type="text" name="surplus_date" id="surplus_date" value="<?php echo @$asset['surplus_date']; ?>" class=".form-control" />
+			</p>
+
+			<p>
+				<input type="submit" name="submit" value="Save" />
+				<input type="submit" name="submit" value="Save & Add New" />
+			</p>
+		</div>
     </form>
+
+<script src="<?php echo $SITE->CFG->js; ?>jquery.validate.min.js"></script>
+<script src="<?php echo $SITE->CFG->js; ?>jquery.metadata.js"></script>
+<script src="<?php echo $SITE->CFG->js; ?>additional-methods.min.js"></script>
 <script src="<?php echo $SITE->CFG->js; ?>edit.js"></script>
 <?php    
 }
