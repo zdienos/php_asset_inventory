@@ -197,15 +197,15 @@ function checkGroupEx($ad, $userdn, $groupdn) {
 
 function get_user_last_login($user){
     global $SITE;
-    //$sql = "SELECT FROM_UNIXTIME(time_updated) FROM log WHERE user_id = ? AND action = 'login' ORDER BY time_updated DESC LIMIT 0,1";
-    $sql = "SELECT time_updated FROM log WHERE user_id = ? AND action = 'login' ORDER BY time_updated DESC LIMIT 0,1";
-    $stmt = $SITE->DB->prepare($sql);
+    $sql = "SELECT time_updated FROM log WHERE user_id = ? AND action = 'login' ORDER BY time_updated DESC LIMIT 0,2";
+    //$sql = "SELECT FROM_UNIXTIME(time_updated) as 'time_updated' FROM log WHERE user_id = ? AND action = 'login' ORDER BY time_updated DESC LIMIT 0,2";
+	$stmt = $SITE->DB->prepare($sql);
     $stmt->execute(array($user));
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if(count($result) < 1){
         return false;
     } else {
-        return $result[0]['time_updated'];
+        return $result[1]['time_updated'];
     }
 }
 
@@ -226,8 +226,13 @@ function get_user_info($acct){
 function get_new_assets($user,$count = false){
 	global $SITE;
 	$last_login = get_user_last_login($user);
-	$sql = "SELECT * FROM assets WHERE creation_date >= '$last_login' ORDER BY creation_date DESC";
-	$result = $SITE->DB->query($sql);
+	if(!$last_login){
+		return false;
+	}
+	//$sql = "SELECT * FROM assets WHERE creation_date >= '$last_login' ORDER BY creation_date DESC";
+	$sql = "SELECT * FROM assets WHERE creation_date >= FROM_UNIXTIME($last_login) ORDER BY creation_date DESC";
+	$stmt = $SITE->DB->query($sql);
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	if(count($result) < 1){
 		return false;
 	} else {
