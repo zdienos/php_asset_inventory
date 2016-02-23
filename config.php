@@ -2,7 +2,7 @@
 
 // TODO REVAMP totally to pull most of this from database
 
-include_once("secure.php");
+require_once("secure.php");
 
 // set the $CFG global object
 unset($CFG);
@@ -80,7 +80,7 @@ if(1==1) {
 }
 
 // system core
-include("core.php");
+require_once("core.php");
 
 set_error_handler("custom_error_handler",E_USER_ERROR);
 set_error_handler("custom_error_handler",E_ERROR);
