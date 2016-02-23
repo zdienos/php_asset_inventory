@@ -9,7 +9,7 @@ if($CFG->debug){
 
 // check for login
 if( !$USER->logged ){
-    header('Location: index.php');
+    header('Location: '.$SITE->CFG->url.'index.php');
 }
 
 // variable definitions
@@ -122,21 +122,6 @@ $limit_sql = " LIMIT $page, $limit ";
 
 // begin building SQL
 $search_sql = "SELECT ";
-//$search_sql .= " * ";
-
-/*
-$search_sql .= "assets.id, ";
-$search_sql .= "assets.asset_tag AS 'Tag #', ";
-$search_sql .= "assets.serial_number AS 'SN', ";
-$search_sql .= "assets.po_number as 'PO', ";
-$search_sql .= "asset_types.type as 'Type', ";
-$search_sql .= "assets.status_id, ";
-$search_sql .= "assets.make_id, ";
-$search_sql .= "assets.model_id, ";
-$search_sql .= "assets.service_tag, ";
-$search_sql .= "assets.purchase_date, ";
-$search_sql .= "assets.surplus_date ";
-*/
 
 $search_sql .= "assets.id, ";
 $search_sql .= "assets.asset_tag as 'Asset Tag', ";
@@ -149,7 +134,6 @@ $search_sql .= "asset_models.model as 'Model', ";
 $search_sql .= "assets.service_tag as 'Service Tag', ";
 $search_sql .= "assets.purchase_date as 'Purchased', ";
 $search_sql .= "assets.surplus_date as 'Surplused' ";
-
 
 $search_sql .= "FROM assets ";
 $search_sql .= "LEFT JOIN asset_types ON assets.type_id = asset_types.id ";
@@ -173,13 +157,11 @@ try {
 } catch (Exception $e) {
 	trigger_error($e->getMessage());
 }
-/*
-if($results_count < 1){
-	trigger_error("Records not found problem with DB?", E_USER_ERROR);
-}
-*/
+
 
 require_once('header.php');
+
+include_once('search.php');
 
 echo "<!-- $search_sql -->";
 
