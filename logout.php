@@ -1,6 +1,7 @@
-<?php   
-session_start(); //to ensure you are using same session
+<?php
+include("config.php");
+log_event($USER->session->id,'0','logout');
 session_destroy(); //destroy the session
-header("location: index.php"); //to redirect back to "index.php" after logging out
+header("Location: index.php"); //to redirect back to "index.php" after logging out
 exit();
 ?>
