@@ -26,14 +26,18 @@ if( (isset($_SESSION['uzr']['logged'])) && (!empty($_SESSION['uzr']['logged'])) 
     $USER->key = base64_encode($session_id);
 }
 
-// check for admin group
-if(in_array( $SITE->CFG->admin_group, $USER->session->groups )){
-    $USER->is_admin = TRUE;
-}
+if(@$USER->session->groups){
 
-// check for edit priv
-if(in_array( $SITE->CFG->edit_group, $USER->session->groups )){
-    $USER->can_edit = TRUE;
+	// check for admin group
+	if(in_array( $SITE->CFG->admin_group, $USER->session->groups )){
+		$USER->is_admin = TRUE;
+	}
+
+	// check for edit priv
+	if(in_array( $SITE->CFG->edit_group, $USER->session->groups )){
+		$USER->can_edit = TRUE;
+	}
+	
 }
 
 // closing tag left off intentionally to prevent white space
