@@ -40,5 +40,24 @@ jQuery( document ).ready(function() {
             
         }
     });
+	
+	$("#assetForm").validate({
+		rules: {
+			firstname: "required",
+			topic: {
+				required: "#newsletter:checked",
+				minlength: 2
+			},
+			agree: "required"
+		},
+		messages: {
+			firstname: "Please enter your firstname",
+			username: {
+				required: "Please enter a username",
+				minlength: "Your username must consist of at least 2 characters"
+			},
+			topic: "Please select at least 2 topics"
+		}
+	});
 
 });	
