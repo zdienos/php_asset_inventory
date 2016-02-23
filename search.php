@@ -86,6 +86,10 @@ $models_dropdown_output .= "</select>".PHP_EOL;
 					<input type="text" id="asset_tag" name="asset_tag"  class=".form-control" />
 				</p>
 				<p>
+					<label>PO Number</label>
+					<input type="text" id="po_number" name="po_number"  class=".form-control" />
+				</p>
+				<p>
 					<input type="submit" value="Go">
 				</p>
 			</div>	
