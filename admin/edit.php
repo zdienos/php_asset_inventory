@@ -46,7 +46,8 @@ if( ($_POST) ){ // check for post
         array("name" => "make_id","type" => "integer"),
         array("name" => "model_id","type" => "integer"),
         array("name" => "service_tag","type" => "string"),
-        array("name" => "purchase_date","type" => "string"),
+		array("name" => "room_number","type" => "string"),
+		array("name" => "purchase_date","type" => "string"),
         array("name" => "surplus_date","type" => "string")
     );
     
@@ -250,7 +251,7 @@ if($SITE->error->has_errors()){
 				<label for="asset_tag">Asset Tag #</label>
 				<input type="text" name="asset_tag" id="asset_tag" value="<?php echo @$asset['asset_tag']; ?>" class=".form-control" />
 			</p>
-
+			
 			<p>
 				<label for="serial_number">Serial #</label>
 				<input type="text" name="serial_number" id="serial_number" value="<?php echo @$asset['serial_number']; ?>" class=".form-control" />
@@ -276,31 +277,36 @@ if($SITE->error->has_errors()){
 			</p>
 
 			<p>
-				<label for="">Make</label>
+				<label for="make_id">Make</label>
 				<select name="make_id" id="make_id" class=".form-control">
 					<?php echo $make_options; ?>
 				</select>
 			</p>
 
 			<p>
-				<label for="">Model</label>
+				<label for="model_id">Model</label>
 				<select name="model_id" id="model_id" class=".form-control">
 					<?php echo $model_options; ?>
 				</select>
 			</p>
 
 			<p>
-				<label for="">Service Tag #</label>
+				<label for="service_tag">Service Tag #</label>
 				<input type="text" name="service_tag" id="service_tag" value="<?php echo @$asset['service_tag']; ?>" class=".form-control" />
+			</p>
+			
+			<p>
+				<label for="room_number">Room #</label>
+				<input type="text" name="room_number" id="room_number" value="<?php echo @$asset['room_number']; ?>" class=".form-control" />
 			</p>
 
 			<p>
-				<label for="">Purchase Date</label>
+				<label for="purchase_date">Purchase Date</label>
 				<input type="text" name="purchase_date" id="purchase_date" value="<?php echo @$asset['purchase_date']; ?>" class=".form-control" />
 			</p>
 
 			<p>
-				<label for="">Surplus Date</label>
+				<label for="surplus_date">Surplus Date</label>
 				<input type="text" name="surplus_date" id="surplus_date" value="<?php echo @$asset['surplus_date']; ?>" class=".form-control" />
 			</p>
 
@@ -310,6 +316,8 @@ if($SITE->error->has_errors()){
 			</p>
 		</div>
     </form>
+
+<?php require_once('assign.php'); ?>
 
 <script src="<?php echo $SITE->CFG->js; ?>jquery.validate.min.js"></script>
 <script src="<?php echo $SITE->CFG->js; ?>jquery.metadata.js"></script>

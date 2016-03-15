@@ -16,6 +16,7 @@ if( !$USER->is_admin ){
 $sql = "SELECT ";
 
 // FIELDS TO GRAB
+$sql .= "assets.id as 'asset_id', ";
 $sql .= "CONCAT(users.first_name,' ',users.last_name) as 'fullname', ";
 $sql .= "assets.asset_tag as 'KET Tag #', ";
 $sql .= "FROM_UNIXTIME(log.time_updated) as 'Action Time', ";
@@ -38,7 +39,8 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 require_once("../header.php");
 
-echo generate_html_table($results,"id",FALSE);
+//echo generate_html_table($results,"id",FALSE);
+echo generate_html_table($results,"asset_id");
 
 require_once("../footer.php");
 ?>

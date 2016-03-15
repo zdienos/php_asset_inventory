@@ -78,16 +78,18 @@ $makes_output .= "</p>\n";
 $makes_output .= "</div>\n";
 
 ?><?php require_once("../header.php");?>
-
-<?php echo $makes_output; ?>
+<p><?php echo $makes_output; ?></p>
 <div id="makes-form">
-	<form method="post">
-		<p>
-			<input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
-			<label for="make">New Make</label>
-			<input type="text" name="make" id="make" class=".form-control" />
-			<input type="submit" name="submit" value="Save" />
-		</p>
-	</form>
+	<fieldset>
+		<legend>New Make</legend>
+		<form method="post">
+			<p>
+				<input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
+				<label for="make">New Make</label>
+				<input type="text" name="make" id="make" class=".form-control" />
+				<input type="submit" name="submit" value="Save" />
+			</p>
+		</form>
+	</fieldset>
 </div>
 <?php require_once("../footer.php");?>

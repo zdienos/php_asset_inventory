@@ -54,7 +54,15 @@ if($criteria !== false){
     // build where array
     foreach($_POST as $key => $value){
         if( ($key !== "valid") && (!empty($value)) && ($value !== 'Select Below') ){
-            $where_values[] = " assets.$key = '$value' ";
+			$where_values[] = " assets.$key LIKE '%$value%' ";
+
+/*
+			if(is_numeric($value)){
+            	$where_values[] = " assets.$key = '$value' ";
+			} else {
+				$where_values[] = " assets.$key LIKE '%$value%' ";
+			}
+*/
         }
     }
 

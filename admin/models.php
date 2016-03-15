@@ -44,10 +44,10 @@ if(!empty($_POST)){
 	
 	// all appears clear insert value
 	
-	$sql = "INSERT INTO $current_table ( model ) VALUES  ( ? )";
+	$sql = "INSERT INTO $current_table ( model, make_id ) VALUES  ( ?, ? )";
 	try {
 		$stmt = $SITE->DB->prepare($sql);
-		$stmt->execute(array($_POST['model']));
+		$stmt->execute(array($_POST['model'],$_POST['make_id']));
 	} catch (Exception $e){
 		trigger_error($e->getMessage());
 	}
@@ -56,6 +56,18 @@ if(!empty($_POST)){
     
 }
 
+// build make options
+$makes = get_asset_makes();
+$makes_dropdown_out = "<select id='make_id' name='make_id' class='.form-control'>".PHP_EOL;
+$makes_dropdown_out .= "<option>Select Below</option>";
+foreach($makes as $make){
+    $makes_dropdown_out .= "<option value='".$make['id']."'";
+	if(((isset($asset)) && ($make['id'] === $asset['make_id'])) || ( (!empty($_POST['make_id'])) && ($_POST['make_id'] === $make['id']))){
+        $makes_dropdown_out .= " selected";
+    }
+    $makes_dropdown_out .= ">".$make['make']."</option>".PHP_EOL;
+}
+$makes_dropdown_out .= "</select>".PHP_EOL;
 
 // build model options
 $models = get_asset_models();
@@ -78,16 +90,26 @@ $models_output .= "</p>\n";
 $models_output .= "</div>\n";
 
 ?><?php require_once("../header.php");?>
-
-<?php echo $models_output; ?>
+<p><?php echo $models_output; ?></p>
 <div id="models-form">
-	<form method="post">
-		<p>
-			<input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
-			<label for="model">New Model</label>
-			<input type="text" name="model" id="model" class=".form-control" />
-			<input type="submit" name="submit" value="Save" />
-		</p>
-	</form>
+	<fieldset>
+		<legend>New Model</legend>
+		<form method="post">
+			<p>
+				<input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
+				<p>
+					<label for="make_id">Make</label>
+					<?php echo $makes_dropdown_out; ?>
+				</p>
+				<p>
+					<label for="model">New Model</label>
+					<input type="text" name="model" id="model" class=".form-control" />
+				</p>
+				<p>
+					<input type="submit" name="submit" value="Save" />
+				</p>
+			</p>
+		</form>
+	</fieldset>
 </div>
 <?php require_once("../footer.php");?>
