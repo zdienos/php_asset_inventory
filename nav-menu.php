@@ -27,7 +27,9 @@ if($USER->logged){
 }
 
 $menu_output .= "\t\t\t<li role='separator' class='divider'></li>".PHP_EOL;
-$menu_output .= "\t\t\t<li><a href='".$SITE->CFG->url."logout.php'>Logout</a></li>".PHP_EOL;
+if($USER->logged){ 
+	$menu_output .= "\t\t\t<li><a href='".$SITE->CFG->url."logout.php'>Logout</a></li>".PHP_EOL;
+}
 $menu_output .= "\t\t</ul>".PHP_EOL;
 
 //$menu_output .= "</nav>".PHP_EOL;
