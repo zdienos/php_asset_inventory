@@ -1,5 +1,7 @@
 <?php
 
+include("config.php");
+
 // check for authorized post
 if( (isset($_POST['key'])) && (base64_decode($_POST['key']) !== session_id()) ) {
 
@@ -8,13 +10,18 @@ if( (isset($_POST['key'])) && (base64_decode($_POST['key']) !== session_id()) ) 
     
 } elseif( (isset($_POST['key'])) && (base64_decode($_POST['key']) === session_id()) ) {
 
-    // possible TODO handle this better
-    $username = html_entity_decode($_POST['username']);
-    $password = html_entity_decode($_POST['password']);
-    
-    // connect to LDAP
-    $LDAP = ldap_connect($CFG->ldap_host);
 
+	if( strlen($_POST['username']) == 0 || strlen($_POST['password']) == 0){
+		die("username and password required to submit.");
+	}
+	
+    // possible TODO handle this better
+    $username = html_entity_decode(trim($_POST['username']));
+    $password = html_entity_decode(trim($_POST['password']));
+
+    // connect to LDAP
+    $LDAP = ldap_connect($SITE->CFG->ldap_host) or die("Couldn't connect to LDAP server.");
+	
     // set ldap options
     ldap_set_option($LDAP, LDAP_OPT_PROTOCOL_VERSION, 3);
     ldap_set_option($LDAP, LDAP_OPT_REFERRALS, 0);
@@ -22,11 +29,10 @@ if( (isset($_POST['key'])) && (base64_decode($_POST['key']) !== session_id()) ) 
     $ldap_rdn = 'KET' . "\\" . $username;
     
     // try user credential
-    
     $login_start = microtime(true);
-    
-    $bind = @ldap_bind($LDAP, $ldap_rdn, $password);
 
+    $bind = ldap_bind($LDAP, $ldap_rdn, $password);
+	
     if ($bind) {
         $filter = "(sAMAccountName=$username)";
         $result = ldap_search($LDAP,$CFG->ldap_basedn,$filter);
@@ -45,8 +51,12 @@ if( (isset($_POST['key'])) && (base64_decode($_POST['key']) !== session_id()) ) 
         
         $ad_dn = getDN($LDAP, $username, $CFG->ldap_basedn);
         ldap_unbind($LDAP);
-
-    }
+    } else {
+		echo "<p>".ldap_error($LDAP)."</p>";
+		die("couldn't bind: user: [".$username."]");
+		//header('Location: '.$SITE->CFG->url.'index.php');
+	}
+	
 
 
     
