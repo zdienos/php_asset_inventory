@@ -46,7 +46,8 @@ $CFG->admin_group = KET_ASSET_GROUPS_ADMIN;
 $CFG->edit_group = KET_ASSET_GROUPS_EDIT;
 
 // base values to build on
-$CFG->domain = $_SERVER['SERVER_ADDR'];
+#$CFG->domain = $_SERVER['SERVER_ADDR'];
+$CFG->domain = "itinventory.ket.org";
 $CFG->cwd = basename( __DIR__ );
 $CFG->dataroot = __DIR__ . "/";
 $CFG->url_base = $CFG->domain."/";
