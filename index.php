@@ -24,7 +24,7 @@ if($USER->logged){
 	if($USER->is_allowed){
     	require_once('home.php');
 	} else {
-		echo "Please contact IT for access."
+		echo "Please contact IT for access.";
 	}
 } else { // not logged in
     require_once('login.php');
