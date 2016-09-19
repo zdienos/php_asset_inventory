@@ -30,12 +30,17 @@ if(@$USER->session->groups){
 
 	// check for admin group
 	if(in_array( $SITE->CFG->admin_group, $USER->session->groups )){
+		$USER->can_edit = TRUE;
 		$USER->is_admin = TRUE;
 	}
 
 	// check for edit priv
 	if(in_array( $SITE->CFG->edit_group, $USER->session->groups )){
-		$USER->can_edit = TRUE;
+		$USER->can_view = TRUE;
+	}
+	
+	if( $USER->can_view || $USER->can_edit ){
+		$USER->is_allowed = TRUE;
 	}
 	
 }

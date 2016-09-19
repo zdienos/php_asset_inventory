@@ -21,7 +21,11 @@ require_once('header.php');
 
 // check for login
 if($USER->logged){
-    require_once('home.php');
+	if($USER->is_allowed){
+    	require_once('home.php');
+	} else {
+		echo "Please contact IT for access."
+	}
 } else { // not logged in
     require_once('login.php');
 }
