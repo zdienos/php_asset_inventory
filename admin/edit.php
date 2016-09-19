@@ -228,6 +228,10 @@ foreach($models as $model){
     $model_options .= ">".$model['model']."</option>".PHP_EOL;
 }
 
+echo "<!-- ";
+var_dump($USER);
+echo " -->";
+
 
 require_once('../header.php');
 
@@ -310,10 +314,16 @@ if($SITE->error->has_errors()){
 				<input type="text" name="surplus_date" id="surplus_date" value="<?php echo @$asset['surplus_date']; ?>" class=".form-control" />
 			</p>
 
-			<p>
-				<input type="submit" name="submit" value="Save" />
-				<input type="submit" name="submit" value="Save & Add New" />
-			</p>
+
+
+<?php if($USER->is_admin){ 
+	echo '<p>';
+	echo '<input type="submit" name="submit" value="Save" />';
+	echo '<input type="submit" name="submit" value="Save & Add New" />';
+	echo '</p>';
+}
+?>
+			
 		</div>
     </form>
 
