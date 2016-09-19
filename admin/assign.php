@@ -99,8 +99,10 @@ if(sizeof($result) < 1){
 			<label for="user_descr">User Description</label>
 			<input type="text" name="user_descr" id="user_descr" value="" />
 		</p>
+<?php if($USER->is_admin){ ?>
 		<p>
 			<input type="submit" value="Save" />
 		</p>
+<?php } ?>
 	</form>
 </div>
