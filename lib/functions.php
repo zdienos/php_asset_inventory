@@ -377,6 +377,48 @@ function get_asset($id){
 }
 
 
+function get_assignment_types(){
+    global $SITE;
+    $types_sql = "SELECT * FROM assignment_types ORDER BY type ASC";
+    $result = $SITE->DB->query($types_sql);
+	$count = $result->rowCount();
+    if($count > 0){
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
+
+
+function get_assignments($asset_id){
+	global $SITE;
+
+	$asset_sql = "SELECT * FROM assignments WHERE id = ?";
+	$stmt = $SITE->DB->prepare($asset_sql);
+	$stmt->execute(array($id));
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if(sizeof($results) < 1){
+		return false;
+	} else {
+		$asset = $results[0];
+	}
+	return $asset;
+}
+
+
+function get_department_codes(){
+    global $SITE;
+    $types_sql = "SELECT * FROM departments ORDER BY code ASC";
+    $result = $SITE->DB->query($types_sql);
+	$count = $result->rowCount();
+    if($count > 0){
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
+
+
 function build_options_html($options,$label,$id = NULL){
     $output = "";
     foreach($options as $option){
