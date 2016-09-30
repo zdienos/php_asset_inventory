@@ -91,7 +91,7 @@ $models_dropdown_output .= "</select>".PHP_EOL;
 					<input type="text" id="asset_tag" name="asset_tag" value="<?php echo $asset_tag; ?>" class=".form-control" />
 				</p>
 				<p>
-					<label>Asset Tag</label>
+					<label>Serial Number</label>
 					<input type="text" id="serial_number" name="serial_number" value="<?php echo $serial_number;?>" class=".form-control" />
 				</p>
 				<p>
