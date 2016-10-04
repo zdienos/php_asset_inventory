@@ -12,8 +12,6 @@ if(!empty($_POST)){
 	
 	if(!empty($_POST["id"])){
 		
-		
-		
 		// update sql
 		$sql = "UPDATE asset_assignments SET assignment_end = ? WHERE id = ?";
 		$values = array($now, $_POST["id"]);
@@ -93,7 +91,7 @@ if(sizeof($result) < 1){
 	</p>
 </div>
 <div id="assign-form">
-	<form method="post" action="assign.php">
+	<form method="post" action="assign-old.php">
 		<input type="hidden" name="asset_id" value="<?php echo $asset["id"]; ?>" />
 		<p>
 			<label for="user_descr">User Description</label>
