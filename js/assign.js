@@ -8,7 +8,7 @@ jQuery( document ).ready(function() {
 	
 	var typeSelect, assignedSelect
 	typeSelect = $( "#assignment_type" );
-	assignedSelect = $( "#assigned_to")''
+	assignedSelect = $( "#assigned_to");
 
 	typeSelect.change(function(){
 		
