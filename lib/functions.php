@@ -379,7 +379,7 @@ function get_asset($id){
 
 function get_assignment_types(){
     global $SITE;
-    $types_sql = "SELECT * FROM assignment_types ORDER BY type ASC";
+    $types_sql = "SELECT * FROM asset_assignment_types ORDER BY type ASC";
     $result = $SITE->DB->query($types_sql);
 	$count = $result->rowCount();
     if($count > 0){
@@ -390,6 +390,43 @@ function get_assignment_types(){
 }
 
 
+function get_assignments($asset_id){
+	global $SITE;
+	$sql = "SELECT ";
+	$sql .= "asset_assignments.id, ";
+	$sql .= "asset_assignments.asset_id, ";
+	$sql .= "types.type, ";
+	$sql .= "CASE asset_assignments.assignment_type ";
+	$sql .= "	WHEN 1 then users.email ";
+	$sql .= "	WHEN 2 then departments.name ";
+	$sql .= "	WHEN 3 then rooms.name ";
+	$sql .= "	WHEN 4 then projects.name ";
+	$sql .= "END as assigned_to, ";
+	$sql .= "assignment_start, ";
+	$sql .= "assignment_end ";
+	
+	$sql .= "FROM asset_assignments ";
+	$sql .= "LEFT JOIN asset_assignment_types types ON types.id = asset_assignments.assignment_type ";
+	$sql .= "LEFT JOIN departments ON asset_assignments.assigned_to = departments.id ";
+	$sql .= "LEFT JOIN users ON asset_assignments.assigned_to = users.id ";
+	$sql .= "LEFT JOIN rooms ON asset_assignments.assigned_to = rooms.id ";
+	$sql .= "LEFT JOIN projects ON asset_assignments.assigned_to = projects.id ";
+	
+	$sql .= "WHERE ";
+	$sql .= "asset_assignments.asset_id = ?";
+		
+	$stmt = $SITE->DB->prepare($sql);
+	$stmt->execute(array($asset_id));
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if(sizeof($results) < 1){
+		return false;
+	} else {
+		$data = $results[0];
+	}
+	return $data;
+}
+
+/*
 function get_assignments($asset_id){
     global $SITE;
 	$sql = "SELECT ";
@@ -423,7 +460,7 @@ function get_assignments($asset_id){
 		return false;
 	}
 }
-
+*/
 
 function get_department_codes(){
     global $SITE;
