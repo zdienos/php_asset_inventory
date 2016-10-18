@@ -68,9 +68,9 @@ foreach($types as $type){
 		$statuses_dropdown_out .= " selected";
 	}
 	*/
-	$statuses_dropdown_out .= ">".$status['status']."</option>".PHP_EOL;
+	$types_dropdown_out .= ">".$type['status']."</option>".PHP_EOL;
 }
-$statuses_dropdown_out .= "</select>".PHP_EOL;
+$types_dropdown_out .= "</select>".PHP_EOL;
 
 ?>
 <h3>Device Assignments</h3>
