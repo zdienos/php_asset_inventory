@@ -63,9 +63,11 @@ $types_dropdown_out = "<select id='assignment_type' name='assignment_type' class
 $types_dropdown_out .= "<option>Select Below</option>";
 foreach($types as $type){
     $types_dropdown_out .= "<option value='".$type['asset_id']."'";
+	/*
 	if(){
 		$statuses_dropdown_out .= " selected";
 	}
+	*/
 	$statuses_dropdown_out .= ">".$status['status']."</option>".PHP_EOL;
 }
 $statuses_dropdown_out .= "</select>".PHP_EOL;
