@@ -82,11 +82,14 @@ $statuses_dropdown_out .= "</select>".PHP_EOL;
 		<input type="hidden" name="asset_id" value="<?php echo $asset["id"]; ?>" />
 
 		<p>
-			<label for="assignment_type">User Description</label>
-			
+			<label for="assignment_type">Assignment Type</label>
+			<?php echo $types_dropdown_out; ?>
 		</p>
 		
-		
+		<p>
+			<label for="assigned_to">Assigned</label>
+			<select id="assigned_to"></select>
+		</p>
 		
 <?php if($USER->is_admin){ ?>
 		<p>
