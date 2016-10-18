@@ -71,6 +71,7 @@ foreach($types as $type){
 $types_dropdown_out .= "</select>".PHP_EOL;
 
 ?>
+
 <h3>Device Assignments</h3>
 <div id="assign-history">
 	<p>
@@ -98,3 +99,4 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 <?php } ?>
 	</form>
 </div>
+<script src="<?php echo $SITE->CFG->js; ?>assign.js"></script>
