@@ -17,17 +17,19 @@ jQuery( document ).ready(function() {
 		// submit value of type
 		
 		// grab response
+		var tempVal = [1,"Russell Pruitt"];
+		var tempVal2 = [2,"James Grimm"];
+		var tempVal3 = [3,"Matt Cravens"];
+		var tempValues = [tempVal,tempVal2,tempVal3]
 		
 		// process response
-		
-		/*
-		$.each(selectValues, function(key, value) {   
-     	$('#mySelect')
+		$.each(tempValues, function(key, value) {   
+     	$(assignedSelect)
 			.append($('<option>', { value : key })
 			.text(value)); 
 		});
-		*/
 		
-		assignedSelect.append("<option value='1'>Test</option>");
+		
+		//assignedSelect.append("<option value='1'>Test</option>");
 	});
 });	
