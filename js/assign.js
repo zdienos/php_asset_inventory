@@ -6,6 +6,6 @@ this file containts the code to populate appropriate values into the assigned_to
 
 jQuery( document ).ready(function() {
 	$( "#assignment_type" ).change(function(){
-		$( "#assigned_to").html("testing")
+		$( "#assigned_to").append("<option value='1'>Test</option>");
 	});
 });	
