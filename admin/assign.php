@@ -62,13 +62,11 @@ $types = get_assignment_types();
 $types_dropdown_out = "<select id='assignment_type' name='assignment_type' class='.form-control'>".PHP_EOL;
 $types_dropdown_out .= "<option>Select Below</option>";
 foreach($types as $type){
-    $types_dropdown_out .= "<option value='".$type['asset_id']."'";
-	/*
-	if(){
+    $types_dropdown_out .= "<option value='".$type['id']."'";
+	if($assignments[0]["assignment_type"] == $type['id']){
 		$statuses_dropdown_out .= " selected";
 	}
-	*/
-	$types_dropdown_out .= ">".$type['status']."</option>".PHP_EOL;
+	$types_dropdown_out .= ">".$type['type']."</option>".PHP_EOL;
 }
 $types_dropdown_out .= "</select>".PHP_EOL;
 
