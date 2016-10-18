@@ -64,7 +64,7 @@ if(sizeof($result) < 1){
 	foreach($result as $row){
 		$assign_history_out .= "<tr>\n";
 		$assign_history_out .= "<td>".$row["user_descr"]."</td><td>".$row["assignment_start"]."</td>";
-		if(empty($row["assignment_end"])){
+		if(empty($row["assignment_end"]) && ($USER->is_admin) ){
 			$assign_history_out .= "<td>\n";
 			$assign_history_out .= "<form method='post' action='".$SITE->CFG->url."admin/assign.php'>\n";
 			$assign_history_out .= "<input type='hidden' name='id' value='".$row["id"]."' />\n";
@@ -84,7 +84,7 @@ if(sizeof($result) < 1){
 
 
 ?>
-<h3>Device Assignments</h3>
+<h3>OLD Device Assignments</h3>
 <div id="assign-history">
 	<p>
 		<?php echo $assign_history_out; ?>
