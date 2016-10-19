@@ -68,6 +68,7 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 
 // build assignment history
 $assignments = get_assignments($asset["id"]);
+$assign_history_out = "<table border='0' cellspacing='2' cellpadding='2'>"
 
 foreach($assignments as $assignment){
 	$assign_history_out .= "<tr>";
@@ -75,8 +76,12 @@ foreach($assignments as $assignment){
 	$assign_history_out .= "<td>".$assignment["assigned_to"]."</td>";
 	$assign_history_out .= "<td>".$assignment["assignment_start"]."</td>";
 	$assign_history_out .= "<td>".$assignment["assignment_end"]."</td>";
+	$assign_history_out .= "<td>".$assignment["user_descr"]."</td>";
 	$assign_history_out .= "</tr>";
 }
+
+$assign_history_out .= "</table>";
+
 ?>
 
 <h3>Device Assignments</h3>
