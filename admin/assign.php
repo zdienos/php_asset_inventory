@@ -32,7 +32,7 @@ if(!empty($_POST)){
 		
 		// create new assignment
 		$sql = "INSERT INTO asset_assignments ( asset_id, assignment_type, assigned_to, assignment_start ) VALUES ( ?, ?, ?, ?)";
-		$values = array($_POST["asset_id"],$_POST["user_descr"],$now);
+		$values = array($_POST["asset_id"],$_POST["assignment_type"],$_POST["assigned_to"],$_POST["assignment_start"]);
 		
 	}
 
@@ -52,11 +52,6 @@ if(!empty($_POST)){
 	return;
 }
 
-
-// build assignment history
-$assignments = get_assignments($asset["id"]);
-
-
 // build status options
 $types = get_assignment_types();
 $types_dropdown_out = "<select id='assignment_type' name='assignment_type' class='.form-control'>".PHP_EOL;
@@ -70,6 +65,18 @@ foreach($types as $type){
 }
 $types_dropdown_out .= "</select>".PHP_EOL;
 
+
+// build assignment history
+$assignments = get_assignments($asset["id"]);
+
+foreach($assignments as $assignment){
+	$assign_history_out .= "<tr>";
+	$assign_history_out .= "<td>".$assignment["type"]."</td>";
+	$assign_history_out .= "<td>".$assignment["assigned_to"]."</td>";
+	$assign_history_out .= "<td>".$assignment["assignment_start"]."</td>";
+	$assign_history_out .= "<td>".$assignment["assignment_end"]."</td>";
+	$assign_history_out .= "</tr>";
+}
 ?>
 
 <h3>Device Assignments</h3>
