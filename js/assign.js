@@ -44,6 +44,8 @@ jQuery( document ).ready(function() {
 		// get value of type
 		var dataId = typeSelect.val;
 		
+		console.log("type: " + dataId );
+		
 		// submit value of type
 		$.get( "get_assigned_to.php", { id: dataId } ).done( function ( resp ){
 			$.each( resp, function ( key, value ){
@@ -68,4 +70,4 @@ jQuery( document ).ready(function() {
 		
 		//assignedSelect.append("<option value='1'>Test</option>");
 	});
-});	
+});
