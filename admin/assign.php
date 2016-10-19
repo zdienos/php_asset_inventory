@@ -68,7 +68,10 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 
 // build assignment history
 $assignments = get_assignments($asset["id"]);
-$assign_history_out = "<table border='0' cellspacing='2' cellpadding='5'>";
+$assign_history_out = "<div id='assigned-list'>\n";
+$assign_history_out .= "<table border='1'>\n";
+$assign_history_out .= "<thead><tr><th>Type</th><th>Assigned</th><th>Start</th><th>End</th></tr></thead>\n";
+$assign_history_out .= "<tbody>\n";
 
 foreach($assignments as $assignment){
 	$assign_history_out .= "<tr>";
@@ -80,6 +83,7 @@ foreach($assignments as $assignment){
 	$assign_history_out .= "</tr>";
 }
 
+$assign_history_out .= "</tbody>";
 $assign_history_out .= "</table>";
 
 ?>
