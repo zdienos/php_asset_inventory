@@ -42,7 +42,7 @@ jQuery( document ).ready(function() {
 	typeSelect.change(function(){
 		
 		// get value of type
-		var dataId = typeSelect.val;
+		var dataId = typeSelect.val();
 		
 		console.log("type: " + dataId );
 		
