@@ -395,7 +395,7 @@ function get_assignments($asset_id){
 	$sql = "SELECT ";
 	$sql .= "asset_assignments.id, ";
 	$sql .= "asset_assignments.asset_id, ";
-	$sql .= "types.type, ";
+	$sql .= "asset_assignment_types.type, ";
 	$sql .= "CASE asset_assignments.assignment_type ";
 	$sql .= "	WHEN 1 then users.email ";
 	$sql .= "	WHEN 2 then departments.name ";
@@ -406,7 +406,7 @@ function get_assignments($asset_id){
 	$sql .= "assignment_end ";
 	
 	$sql .= "FROM asset_assignments ";
-	$sql .= "LEFT JOIN asset_assignment_types types ON types.id = asset_assignments.assignment_type ";
+	$sql .= "LEFT JOIN asset_assignment_types ON asset_assignment_types.id = asset_assignments.assignment_type ";
 	$sql .= "LEFT JOIN departments ON asset_assignments.assigned_to = departments.id ";
 	$sql .= "LEFT JOIN users ON asset_assignments.assigned_to = users.id ";
 	$sql .= "LEFT JOIN rooms ON asset_assignments.assigned_to = rooms.id ";
