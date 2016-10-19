@@ -23,7 +23,7 @@ switch($type_id){
 		$sql = "SELECT id, email as name FROM users";
 		break;
 	case 2:
-		$sql = "SELECT id, name  FROM departments";
+		$sql = "SELECT id, name FROM departments";
 		break;
 	case 3:
 		$sql = "SELECT id, name FROM rooms";
@@ -47,15 +47,12 @@ if(count($result) < 1){
 	
 } else {
 	
-	var_dump($result);
-	
-	/*
+	//var_dump($result);
 	$output = array(array('id' => '','assigned_to' => 'Select Below'));
-	
 	foreach($result as $row){
-		$output[] = array('id' => $row['id'],'model' => $row['model'],'make_id' => $row['make_id']);
+		$output[] = array('id' => $row['id'],'name' => $row['name']);
 	}
-	*/
+
 }
 
 echo json_encode($output);
