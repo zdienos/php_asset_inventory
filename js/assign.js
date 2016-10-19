@@ -48,26 +48,14 @@ jQuery( document ).ready(function() {
 		
 		// submit value of type
 		$.get( "get_assigned_to.php", { id: dataId } ).done( function ( resp ){
+			$(assignedSelect).empty();
 			$.each( resp, function ( key, value ){
-				console.log( key + ": " + value );
+				var newOption = new Option(value, key);
+				$(assignedSelect).append($(newOption));
+				//console.log( key + ": " + value );
+				
 			});
 		});
-	
-		
-		// grab response
-		var tempVal = [1,"Russell Pruitt"];
-		var tempVal2 = [2,"James Grimm"];
-		var tempVal3 = [3,"Matt Cravens"];
-		var tempValues = [tempVal,tempVal2,tempVal3]
-		
-		// process response
-		$.each(tempValues, function(key, value) {   
-			$(assignedSelect)
-				.append($('<option>', { value : key })
-				.text(value)); 
-		});
-		
-		
-		//assignedSelect.append("<option value='1'>Test</option>");
+
 	});
 });
