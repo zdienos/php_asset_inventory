@@ -43,17 +43,15 @@ jQuery( document ).ready(function() {
 		
 		// get value of type
 		var dataId = typeSelect.val();
-		
-		console.log("type: " + dataId );
-		
+
 		// submit value of type
 		$.get( "get_assigned_to.php", { id: dataId } ).done( function ( resp ){
 			$(assignedSelect).empty();
 			$.each( resp, function ( key, value ){
 				var newOption = new Option(value, key);
+				console.log(newOption);
 				$(assignedSelect).append($(newOption));
 				//console.log( key + ": " + value );
-				
 			});
 		});
 
