@@ -42,13 +42,13 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // check for results
 if(count($result) < 1){
-	//die("<option>No models</option>");
-	return json_encode(array(array('error' => 'no records')));
+
+	echo false;
 	
 } else {
 	
 	//var_dump($result);
-	$output = array(array('id' => '','assigned_to' => 'Select Below'));
+	$output = array(array('id' => '','name' => 'Select Below'));
 	foreach($result as $row){
 		$output[] = array('id' => $row['id'],'name' => $row['name']);
 	}
