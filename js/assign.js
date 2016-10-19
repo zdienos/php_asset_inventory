@@ -43,9 +43,10 @@ jQuery( document ).ready(function() {
 		
 		// get value of type
 		var dataId = typeSelect.val();
+		var dataObj = {id:dataId};
 
 		$.ajax({
-			url:"admin/get_assigned_to.php",
+			url:"get_assigned_to.php",
 			type:"get",
 			data:dataId,
 			dataType:"json", // <-------------expecting json from php
