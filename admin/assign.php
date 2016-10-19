@@ -92,6 +92,16 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 			<select id="assigned_to"></select>
 		</p>
 		
+		<p>
+			<label for="assignment_start">Start Date</label>
+			<input type="text" name="assignment_start" id="assignment_start" value="" class=".form-control" />
+		</p>
+		
+		<p>
+			<label for="assignment_end">End Date</label>
+			<input type="text" name="assignment_end" id="assignment_end" value="" class=".form-control" />
+		</p>
+		
 <?php if($USER->is_admin){ ?>
 		<p>
 			<input type="submit" value="Save" />
