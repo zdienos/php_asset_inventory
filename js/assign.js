@@ -50,7 +50,7 @@ jQuery( document ).ready(function() {
 			$.each( resp, function ( key, value ){
 				var newOption = new Option(value, key);
 				console.log(newOption);
-				$(assignedSelect).append($(newOption));
+				$(assignedSelect).append(newOption);
 				//console.log( key + ": " + value );
 			});
 		});
