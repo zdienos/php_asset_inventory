@@ -44,20 +44,40 @@ jQuery( document ).ready(function() {
 		// get value of type
 		var dataId = typeSelect.val();
 
+		$.ajax({
+			url:"admin/get_assigned_to.php",
+			type:"get",
+			data:dataId,
+			dataType:"json", // <-------------expecting json from php
+			success:function(data){
+				$(nxtElem).empty(); // empty the field first here.
+				$.each(data, function(i, obj){
+					console.log(obj);
+					$('<option>',{
+						value:obj.id,
+						text:obj.name
+					}).appendTo(assignedSelect);		 
+				});
+			},
+			error:function(err){
+			   console.log(err);
+			}
+		});
+		
+		
+		
+		/*
 		// submit value of type
 		$.get( "get_assigned_to.php", { id: dataId } ).done( function ( resp ){
 			//$(assignedSelect).empty();
-			
 			console.log(resp);
-			
-			/*
 			$.each( resp, function ( key, value ){
 				var newOption = new Option(value, key);
 				console.log(newOption);
 				$(assignedSelect).append(newOption);
 			});
-			*/
 		});
+		*/
 
 	});
 });
