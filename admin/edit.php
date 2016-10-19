@@ -329,8 +329,6 @@ if($SITE->error->has_errors()){
 
 
 <?php require_once('assign.php'); ?>
-<?php require_once('assign-old.php'); ?>
-
 
 <script src="<?php echo $SITE->CFG->js; ?>jquery.validate.min.js"></script>
 <script src="<?php echo $SITE->CFG->js; ?>jquery.metadata.js"></script>
