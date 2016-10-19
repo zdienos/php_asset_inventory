@@ -421,7 +421,7 @@ function get_assignments($asset_id){
 	if(sizeof($results) < 1){
 		return false;
 	} else {
-		$data = $results[0];
+		$data = $results;
 	}
 	return $data;
 }
