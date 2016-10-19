@@ -70,6 +70,8 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 $assignments = get_assignments($asset["id"]);
 $assign_history_out = "<table border='0' cellspacing='2' cellpadding='2'>";
 
+var_dump($assignments);
+
 foreach($assignments as $assignment){
 	$assign_history_out .= "<tr>";
 	$assign_history_out .= "<td>".$assignment["type"]."</td>";
