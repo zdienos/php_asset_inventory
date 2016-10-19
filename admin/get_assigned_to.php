@@ -4,10 +4,10 @@
 include("../config.php");
 
 //if( (isset($_GET['m'])) && (isset($_GET['v'])) && () ){
-if( isset($_POST['assignment_type']) ){
+if( isset($_GET['id']) ){
 	// sanitize make_id if needed
-	if(is_numeric($_POST['assignment_type'])){
-		$type_id = intval($_POST['assignment_type']);
+	if(is_numeric($_POST['id'])){
+		$type_id = intval($_POST['id']);
 	} else {
 		// TODO remove below and uncomment echo false
 		die("Unexpected value encountered.");
