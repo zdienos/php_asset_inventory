@@ -75,10 +75,22 @@ $assign_history_out .= "<tbody>\n";
 
 foreach($assignments as $assignment){
 	$assign_history_out .= "<tr>";
-	$assign_history_out .= "<td>".$assignment["type"]."</td>";
-	$assign_history_out .= "<td>".$assignment["assigned_to"]."</td>";
-	$assign_history_out .= "<td>".$assignment["assignment_start"]."</td>";
-	$assign_history_out .= "<td>".$assignment["assignment_end"]."</td>";
+	$assign_history_out .= "<td>".$assignment["type"]."</td>\n";
+	$assign_history_out .= "<td>".$assignment["assigned_to"]."</td>\n";
+	$assign_history_out .= "<td>".$assignment["assignment_start"]."</td>\n";
+	
+	
+	if(empty($row["assignment_end"])){
+		$assign_history_out .= "<td>\n";
+		$assign_history_out .= "<form method='post' action='".$SITE->CFG->url."admin/assign.php'>\n";
+		$assign_history_out .= "<input type='hidden' name='id' value='".$assignment["id"]."' />\n";
+		$assign_history_out .= "<input type='hidden' name='asset_id' value='".$assignment["asset_id"]."' />\n";
+		$assign_history_out .= "<input type='submit' name='submit' value='Unassign' />\n";
+		$assign_history_out .= "</form>";
+		$assign_history_out .= "</td>\n";
+	} else {
+		$assign_history_out .= "<td>".$assignment["assignment_end"]."</td>";
+	}
 	$assign_history_out .= "<td>".$assignment["user_descr"]."</td>";
 	$assign_history_out .= "</tr>";
 }
