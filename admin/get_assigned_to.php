@@ -47,12 +47,15 @@ if(count($result) < 1){
 	
 } else {
 	
+	var_dump($result);
+	
+	/*
 	$output = array(array('id' => '','assigned_to' => 'Select Below'));
 	
 	foreach($result as $row){
 		$output[] = array('id' => $row['id'],'model' => $row['model'],'make_id' => $row['make_id']);
 	}
-	
+	*/
 }
 
 echo json_encode($output);
