@@ -47,14 +47,16 @@ jQuery( document ).ready(function() {
 		// submit value of type
 		$.get( "get_assigned_to.php", { id: dataId } ).done( function ( resp ){
 			//$(assignedSelect).empty();
+			
+			console.log(resp);
+			
+			/*
 			$.each( resp, function ( key, value ){
-				/*
 				var newOption = new Option(value, key);
 				console.log(newOption);
 				$(assignedSelect).append(newOption);
-				*/
-				console.log( key + ": " + value );
 			});
+			*/
 		});
 
 	});
