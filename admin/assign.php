@@ -70,7 +70,7 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 $assignments = get_assignments($asset["id"]);
 $assign_history_out = "<div id='assigned-list'>\n";
 $assign_history_out .= "<table border='1' cellspacing='5'>\n";
-$assign_history_out .= "<thead><tr><th>Type</th><th>Assigned</th><th>Start</th><th>End</th></tr></thead>\n";
+$assign_history_out .= "<thead><tr><th>Type</th><th>Assigned</th><th>Start</th><th>End</th><th>Note</th></tr></thead>\n";
 $assign_history_out .= "<tbody>\n";
 
 foreach($assignments as $assignment){
