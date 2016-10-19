@@ -3,28 +3,17 @@
 // grab config
 include("../config.php");
 
-//if( (isset($_GET['m'])) && (isset($_GET['v'])) && () ){
 if( isset($_GET['id']) ){
-	// sanitize make_id if needed
-	if(is_numeric($_POST['id'])){
-		$type_id = intval($_POST['id']);
+	
+	// sanitize id if needed
+	if(is_numeric($_GET['id'])){
+		$type_id = intval($_GET['id']);
 	} else {
-		// TODO remove below and uncomment echo false
-		die("Unexpected value encountered.");
-		
-		// return false
-		//echo false;
+		echo false;
 	}
 	
 } else {
-	
-	// TODO remove below and uncomment echo false
-	//die(var_dump($_POST));
-	echo("Expected information missing.");
-	
-	// return false
-	//echo false;
-	
+	echo false;
 }
 
 // build sql for models
