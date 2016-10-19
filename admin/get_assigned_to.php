@@ -20,16 +20,16 @@ if( isset($_GET['id']) ){
 
 switch($type_id){
 	case 1:
-		$sql = "SELECT * FROM users";
+		$sql = "SELECT id, email as name FROM users";
 		break;
 	case 2:
-		$sql = "SELECT * FROM departments";
+		$sql = "SELECT id, name  FROM departments";
 		break;
 	case 3:
-		$sql = "SELECT * FROM rooms";
+		$sql = "SELECT id, name FROM rooms";
 		break;
 	case 4:
-		$sql = "SELECT * FROM projects";
+		$sql = "SELECT id, name FROM projects";
 		break;
 }
 
