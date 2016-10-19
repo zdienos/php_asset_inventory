@@ -48,7 +48,7 @@ jQuery( document ).ready(function() {
 		$.ajax({
 			url:"get_assigned_to.php",
 			type:"get",
-			data:dataId,
+			data:dataObj,
 			dataType:"json", // <-------------expecting json from php
 			success:function(data){
 				$(nxtElem).empty(); // empty the field first here.
