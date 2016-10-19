@@ -48,10 +48,12 @@ jQuery( document ).ready(function() {
 		$.get( "get_assigned_to.php", { id: dataId } ).done( function ( resp ){
 			$(assignedSelect).empty();
 			$.each( resp, function ( key, value ){
+				/*
 				var newOption = new Option(value, key);
 				console.log(newOption);
 				$(assignedSelect).append(newOption);
-				//console.log( key + ": " + value );
+				*/
+				console.log( key + ": " + value );
 			});
 		});
 
