@@ -53,7 +53,7 @@ jQuery( document ).ready(function() {
 			success:function(data){
 				$(assignedSelect).empty(); // empty the field first here.
 				$.each(data, function(i, obj){
-					console.log(obj);
+					//console.log(obj);
 					$('<option>',{
 						value:obj.id,
 						text:obj.name
@@ -65,20 +65,5 @@ jQuery( document ).ready(function() {
 			}
 		});
 		
-		
-		
-		/*
-		// submit value of type
-		$.get( "get_assigned_to.php", { id: dataId } ).done( function ( resp ){
-			//$(assignedSelect).empty();
-			console.log(resp);
-			$.each( resp, function ( key, value ){
-				var newOption = new Option(value, key);
-				console.log(newOption);
-				$(assignedSelect).append(newOption);
-			});
-		});
-		*/
-
 	});
 });
