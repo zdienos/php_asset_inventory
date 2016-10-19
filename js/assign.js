@@ -51,7 +51,7 @@ jQuery( document ).ready(function() {
 			data:dataObj,
 			dataType:"json", // <-------------expecting json from php
 			success:function(data){
-				$(nxtElem).empty(); // empty the field first here.
+				$(assignedSelect).empty(); // empty the field first here.
 				$.each(data, function(i, obj){
 					console.log(obj);
 					$('<option>',{
