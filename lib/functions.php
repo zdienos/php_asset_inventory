@@ -144,6 +144,7 @@ function getDN($ad, $samaccountname, $basedn) {
     else { return ''; };
 }
 
+
 /*
 * This function retrieves and returns CN from given DN
 */
@@ -151,6 +152,7 @@ function getCN($dn) {
     preg_match('/[^,]*/', $dn, $matchs, PREG_OFFSET_CAPTURE, 3);
     return $matchs[0][0];
 }
+
 
 /*
 * This function checks group membership of the user, searching only
@@ -165,6 +167,7 @@ function checkGroup($ad, $userdn, $groupdn) {
     $entries = ldap_get_entries($ad, $result);
     return ($entries['count'] > 0);
 }
+
 
 /*
 * This function checks group membership of the user, searching
