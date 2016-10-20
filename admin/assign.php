@@ -119,7 +119,7 @@ $assign_history_out .= "</table>";
 		
 		<p>
 			<label for="assigned_to">Assigned</label>
-			<select id="assigned_to"></select>
+			<select id="assigned_to" name="assigned_to"></select>
 		</p>
 		
 		<p>
