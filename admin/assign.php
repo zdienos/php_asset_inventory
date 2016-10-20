@@ -73,16 +73,15 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 $assignments = get_assignments($asset["id"]);
 $assign_history_out = "<div id='assigned-list' class='assigned-list'>\n";
 $assign_history_out .= "<table class='table table-striped'>\n";
-$assign_history_out .= "<thead><tr><th>Type</th><th>Assigned</th><th>Start</th><th>End</th><th>Note</th></tr></thead>\n";
+$assign_history_out .= "<thead><tr><th>Type</th><th>Assigned</th><th>Note</th><th>Start</th><th>End</th></tr></thead>\n";
 $assign_history_out .= "<tbody>\n";
 
 foreach($assignments as $assignment){
 	$assign_history_out .= "<tr>";
 	$assign_history_out .= "<td>".$assignment["type"]."</td>\n";
 	$assign_history_out .= "<td>".$assignment["assigned_to"]."</td>\n";
+	$assign_history_out .= "<td>".$assignment["user_descr"]."</td>";
 	$assign_history_out .= "<td>".$assignment["assignment_start"]."</td>\n";
-	
-	
 	if(empty($row["assignment_end"])){
 		$assign_history_out .= "<td>\n";
 		$assign_history_out .= "<form method='post' action='".$SITE->CFG->url."admin/assign.php'>\n";
@@ -94,7 +93,6 @@ foreach($assignments as $assignment){
 	} else {
 		$assign_history_out .= "<td>".$assignment["assignment_end"]."</td>";
 	}
-	$assign_history_out .= "<td>".$assignment["user_descr"]."</td>";
 	$assign_history_out .= "</tr>";
 }
 
