@@ -123,6 +123,11 @@ $assign_history_out .= "</table>";
 		</p>
 		
 		<p>
+			<label for="user_descr">User Description</label>
+			<input type="text" name="user_descr" id="user_descr" value="" />
+		</p>
+		
+		<p>
 			<label for="assignment_start">Start Date</label>
 			<input type="text" name="assignment_start" id="assignment_start" value="" class=".form-control" />
 		</p>
