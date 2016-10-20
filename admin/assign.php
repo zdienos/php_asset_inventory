@@ -46,7 +46,10 @@ if(!empty($_POST)){
 	
 	// hey it worked lets redirect
 	$redirect = $SITE->CFG->url."admin/edit.php?id=".$_POST["asset_id"];
-	header("Location: $redirect");
+	
+	echo $sql;
+	
+	//header("Location: $redirect");
 	
 } elseif(!$asset){
 	return;
@@ -97,7 +100,6 @@ foreach($assignments as $assignment){
 
 $assign_history_out .= "</tbody>";
 $assign_history_out .= "</table>";
-
 ?>
 
 <h3>Device Assignments</h3>
