@@ -23,7 +23,8 @@ if(!empty($_POST)){
 	$now = date("Y-m-d");
 	
 	if(!empty($_POST["id"]) && ($_POST["submit"] !== "Unassigned")){
-		
+	
+		die("full update...");
 		// update assignment
 		$sql = "UPDATE asset_assignments SET assignment_type = ?, assigned_to = ?, user_descr = ?, assignment_start = ?, assignment_end = ? WHERE id = ?";
 		$values = array($_POST["assignment_type"],$_POST["assigned_to"], $_POST["user_descr"], $_POST["assignment_start"], $now, $_POST["id"]);
@@ -31,11 +32,14 @@ if(!empty($_POST)){
 	} 
 	else if(!empty($_POST["id"]) && ($_POST["submit"] == "Unassigned")){
 
+		die("unassigned");
+		// fill value for assignment_end
 		$sql = "UPDATE asset_assignments SET assignment_end = ? WHERE id = ?";
 		$value = array($now,$_POST["id"]);
 
 	} else { // new assignment
 		
+		die("new assign");
 		// create new assignment
 		$sql = "INSERT INTO asset_assignments ( asset_id, assignment_type, assigned_to, user_descr, assignment_start ) VALUES ( ?, ?, ?, ?, ?)";
 		$values = array($_POST["asset_id"],$_POST["assignment_type"],$_POST["assigned_to"],$_POST["user_descr"], $_POST["assignment_start"]);
