@@ -23,7 +23,7 @@ if(!empty($_POST)){
 	$now = date("Y-m-d");
 	
 	if(!empty($_POST["submit"])){
-		echo gettype($_POST["submit"]);
+		echo "type: ".gettype($_POST["submit"])."\n";
 		var_dump($_POST);
 	} else {
 		echo "submit is not what u expect";
@@ -53,9 +53,6 @@ if(!empty($_POST)){
 		$values = array($_POST["asset_id"],$_POST["assignment_type"],$_POST["assigned_to"],$_POST["user_descr"], $_POST["assignment_start"]);
 		
 	}
-
-	var_dump($values);
-	die($sql);
 	
 	// attempt the sql
 	try {
