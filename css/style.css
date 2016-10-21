@@ -134,13 +134,14 @@ fieldset legend.search-fieldset-legend {
 
 #right-col {
 	float:left;
-	padding: 5em;
+	padding-top: 3em;
 	padding-left: 0em;
 }
 
 #left-col {
 	float:left;
-	padding: 5em;
+	padding-top: 3em;
+	padding-left: 5em;
 	padding-right: 10em;
 }
 
