@@ -91,14 +91,14 @@ foreach($assignments as $assignment){
 		$assign_history_out .= "<form method='post' action='".$SITE->CFG->url."admin/assign.php'>\n";
 		$assign_history_out .= "<input type='hidden' name='id' value='".$assignment["id"]."' />\n";
 		$assign_history_out .= "<input type='hidden' name='asset_id' value='".$assignment["asset_id"]."' />\n";
-		$assign_history_out .= "<input type='submit' name='submit' value='Unassign' />\n";
+		$assign_history_out .= "<input type='button' name='submit' value='Unassign' class='glyphicon glyphicon-time' />\n";
 		$assign_history_out .= "</form>";
 		$assign_history_out .= "</td>\n";
 	} else {
 		$assign_history_out .= "<td>".$assignment["assignment_end"]."</td>";
 	}
 	$assign_history_out .= "<td>";
-	$assign_history_out .= "<span class='glyphicon glyphicon-minus'></span>";
+	$assign_history_out .= "<span class='glyphicon glyphicon-remove'></span>";
 	$assign_history_out .= "<span class='glyphicon glyphicon-pencil'></span>";
 	$assign_history_out .= "</td>";
 	$assign_history_out .= "</tr>";
