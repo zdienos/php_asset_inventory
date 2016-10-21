@@ -21,7 +21,8 @@ if( (isset($USER->logged)) && ($USER->logged !== true) ){
 if(!empty($_POST)){
 	
 	$now = date("Y-m-d");
-	
+	die(var_dump($_POST));
+
 	if(!empty($_POST["id"]) && ($_POST["submit"] == "Update")){
 	
 		var_dump($_POST);
