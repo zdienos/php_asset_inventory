@@ -241,6 +241,7 @@ if($SITE->error->has_errors()){
 } else {
     ?>
 <div id="left-col">
+	<h3>Asset Information</h3>
     <form id="assetForm" name="assetForm" role="form" method="post" action="<?php echo $SITE->CFG->url; ?>admin/edit.php">
 		<div class="form-group">
 			<?php
