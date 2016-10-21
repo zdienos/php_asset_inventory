@@ -86,7 +86,7 @@ foreach($assignments as $assignment){
 	$assign_history_out .= "<td>".$assignment["assigned_to"]."</td>\n";
 	$assign_history_out .= "<td>".$assignment["user_descr"]."</td>";
 	$assign_history_out .= "<td>".$assignment["assignment_start"]."</td>\n";
-	if(empty($row["assignment_end"])){
+	if(empty($assignment["assignment_end"])){
 		$assign_history_out .= "<td>\n";
 		$assign_history_out .= "<form method='post' action='".$SITE->CFG->url."admin/assign.php'>\n";
 		$assign_history_out .= "<input type='hidden' name='id' value='".$assignment["id"]."' />\n";
