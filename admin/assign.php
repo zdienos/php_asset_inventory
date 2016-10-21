@@ -24,12 +24,18 @@ if(!empty($_POST)){
 	
 	$now = date("Y-m-d");
 	
-	if(!empty($_POST["id"])){
+	if(!empty($_POST["id"]) && ($_POST["submit"] !== "Unassigned")){
 		
 		// update assignment
 		$sql = "UPDATE asset_assignments SET assignment_type = ?, assigned_to = ?, user_descr = ?, assignment_start = ?, assignment_end = ? WHERE id = ?";
 		$values = array($_POST["assignment_type"],$_POST["assigned_to"], $_POST["user_descr"], $_POST["assignment_start"], $now, $_POST["id"]);
 		
+	} 
+	else if(!empty($_POST["id"]) && ($_POST["submit"] == "Unassigned")){
+
+		$sql = "UPDATE asset_assignments SET assignment_end = ? WHERE id = ?";
+		$value = array($now,$_POST["id"]);
+
 	} else { // new assignment
 		
 		// create new assignment
@@ -79,7 +85,7 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 $assignments = get_assignments($asset["id"]);
 $assign_history_out = "<div id='assigned-list' class='assigned-list'>\n";
 $assign_history_out .= "<table class='table table-striped'>\n";
-$assign_history_out .= "<thead><tr><th>Type</th><th>Assigned</th><th>Note</th><th>Start</th><th>End</th></tr></thead>\n";
+$assign_history_out .= "<thead><tr><th>Type</th><th>Assigned</th><th>Note</th><th>Start</th><th>End</th><th>&nbsp;</th></tr></thead>\n";
 $assign_history_out .= "<tbody>\n";
 
 foreach($assignments as $assignment){
@@ -92,13 +98,16 @@ foreach($assignments as $assignment){
 		$assign_history_out .= "<td>\n";
 		$assign_history_out .= "<form method='post' action='".$SITE->CFG->url."admin/assign.php'>\n";
 		$assign_history_out .= "<input type='hidden' name='id' value='".$assignment["id"]."' />\n";
-		$assign_history_out .= "<input type='hidden' name='asset_id' value='".$assignment["asset_id"]."' />\n";
 		$assign_history_out .= "<input type='submit' name='submit' value='Unassign' />\n";
 		$assign_history_out .= "</form>";
 		$assign_history_out .= "</td>\n";
 	} else {
 		$assign_history_out .= "<td>".$assignment["assignment_end"]."</td>";
 	}
+	$assign_history_out .= "<td>";
+	$assign_history_out .= "<span class='glyphicon glyphicon-minus'></span>";
+	$assign_history_out .= "<span class='glyphicon glyphicon-pencil'></span>";
+	$assign_history_out .= "</td>";
 	$assign_history_out .= "</tr>";
 }
 $assign_history_out .= "</tbody>";
