@@ -25,14 +25,14 @@ if(!empty($_POST)){
 	if(!empty($_POST["id"])){
 		
 		// update assignment
-		$sql = "UPDATE asset_assignments SET assignment_type = ?, assigned_to = ?, assignment_end = ? WHERE id = ?";
-		$values = array($_POST["assignment_type"],$_POST["assigned_to"], $now, $_POST["id"]);
+		$sql = "UPDATE asset_assignments SET assignment_type = ?, assigned_to = ?, user_descr = ?, assignment_start = ?, assignment_end = ? WHERE id = ?";
+		$values = array($_POST["assignment_type"],$_POST["assigned_to"], $_POST["user_descr"], $_POST["assignment_start"], $now, $_POST["id"]);
 		
 	} else { // new assignment
 		
 		// create new assignment
-		$sql = "INSERT INTO asset_assignments ( asset_id, assignment_type, assigned_to, assignment_start ) VALUES ( ?, ?, ?, ?)";
-		$values = array($_POST["asset_id"],$_POST["assignment_type"],$_POST["assigned_to"],$_POST["assignment_start"]);
+		$sql = "INSERT INTO asset_assignments ( asset_id, assignment_type, assigned_to, user_descr, assignment_start ) VALUES ( ?, ?, ?, ?, ?)";
+		$values = array($_POST["asset_id"],$_POST["assignment_type"],$_POST["assigned_to"],$_POST["user_descr"], $_POST["assignment_start"]);
 		
 	}
 
