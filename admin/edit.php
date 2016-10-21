@@ -240,6 +240,7 @@ if($SITE->error->has_errors()){
     echo $SITE->error->display();
 } else {
     ?>
+<div id="left-col">
     <form id="assetForm" name="assetForm" role="form" method="post" action="<?php echo $SITE->CFG->url; ?>admin/edit.php">
 		<div class="form-group">
 			<?php
@@ -316,17 +317,17 @@ if($SITE->error->has_errors()){
 
 
 
-<?php if($USER->is_admin){ 
-	echo '<p>';
-	echo '<input type="submit" name="submit" value="Save" />';
-	echo '<input type="submit" name="submit" value="Save & Add New" />';
-	echo '</p>';
-}
-?>
+			<?php if($USER->is_admin){ 
+				echo '<p>';
+				echo '<input type="submit" name="submit" value="Save" />';
+				echo '<input type="submit" name="submit" value="Save & Add New" />';
+				echo '</p>';
+			}
+			?>
 			
 		</div>
     </form>
-
+</div>
 
 <?php require_once('assign.php'); ?>
 
