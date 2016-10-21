@@ -21,12 +21,17 @@ if( (isset($USER->logged)) && ($USER->logged !== true) ){
 if(!empty($_POST)){
 	
 	$now = date("Y-m-d");
-	die(var_dump($_POST));
+	
+	if(!empty($_POST["submit"])){
+		echo gettype($_POST["submit"]);
+		var_dump($_POST);
+	} else {
+		echo "submit is not what u expect";
+	}
+	die();
 
 	if(!empty($_POST["id"]) && ($_POST["submit"] == "Update")){
 	
-		var_dump($_POST);
-		echo gettype($_POST["submit"]);
 		die("full update...");
 		// update assignment
 		$sql = "UPDATE asset_assignments SET assignment_type = ?, assigned_to = ?, user_descr = ?, assignment_start = ?, assignment_end = ? WHERE id = ?";
@@ -35,7 +40,6 @@ if(!empty($_POST)){
 	} 
 	else if(!empty($_POST["id"]) && ($_POST["submit"] == "Unassigned")){
 
-		var_dump($_POST);
 		die("unassigned");
 		// fill value for assignment_end
 		$sql = "UPDATE asset_assignments SET assignment_end = ? WHERE id = ?";
@@ -52,7 +56,6 @@ if(!empty($_POST)){
 
 	var_dump($values);
 	die($sql);
-	
 	
 	// attempt the sql
 	try {
