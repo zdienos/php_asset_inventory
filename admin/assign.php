@@ -36,6 +36,10 @@ if(!empty($_POST)){
 		
 	}
 
+	var_dump($values);
+	die($sql);
+	
+	
 	// attempt the sql
 	try {
 		$stmt = $SITE->DB->prepare($sql);
