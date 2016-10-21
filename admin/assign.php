@@ -98,7 +98,7 @@ foreach($assignments as $assignment){
 $assign_history_out .= "</tbody>";
 $assign_history_out .= "</table>";
 ?>
-<div id="right-col" class="container-fluid">
+<div id="right-col">
 	<h3>Device Assignments</h3>
 	<div id="assign-history">
 		<p>
