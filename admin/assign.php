@@ -90,6 +90,7 @@ foreach($assignments as $assignment){
 		$assign_history_out .= "<td>\n";
 		$assign_history_out .= "<form method='post' action='".$SITE->CFG->url."admin/assign.php'>\n";
 		$assign_history_out .= "<input type='hidden' name='id' value='".$assignment["id"]."' />\n";
+		$assign_history_out .= "<input type='hidden' name='asset_id' value='".$assignment["asset_id"]."' />\n";
 		$assign_history_out .= "<input type='submit' name='submit' value='Unassign' />\n";
 		$assign_history_out .= "</form>";
 		$assign_history_out .= "</td>\n";
