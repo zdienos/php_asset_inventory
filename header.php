@@ -27,7 +27,7 @@
 
 </head>
 <body>
-	<div class="container">
+	<div class="container" class="container-fluid">
         <div id="header">
             <h3>KET Asset Inventory</h3>
             <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
