@@ -138,6 +138,7 @@ fieldset legend.search-fieldset-legend {
 
 #left-col {
 	float:left;
+	border-right:3em;
 }
 
 
