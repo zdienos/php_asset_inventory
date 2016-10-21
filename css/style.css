@@ -132,7 +132,9 @@ fieldset legend.search-fieldset-legend {
 	width: 32em;
 }
 
-
+#right-col {
+	float:right;
+}
 
 
 /* tables */
