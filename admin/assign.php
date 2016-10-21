@@ -53,10 +53,7 @@ if(!empty($_POST)){
 	
 	// hey it worked lets redirect
 	$redirect = $SITE->CFG->url."admin/edit.php?id=".$_POST["asset_id"];
-	
-	echo $sql;
-	
-	//header("Location: $redirect");
+	header("Location: $redirect");
 	
 } elseif(!$asset){
 	return;
