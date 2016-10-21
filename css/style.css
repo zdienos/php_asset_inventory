@@ -136,6 +136,10 @@ fieldset legend.search-fieldset-legend {
 	float:right;
 }
 
+#left-col {
+	float:right;
+}
+
 
 /* tables */
 table.tablesorter {
