@@ -95,51 +95,52 @@ foreach($assignments as $assignment){
 	}
 	$assign_history_out .= "</tr>";
 }
-
 $assign_history_out .= "</tbody>";
 $assign_history_out .= "</table>";
 ?>
+<div class="container-fluid">
+	<h3>Device Assignments</h3>
+	<div id="assign-history">
+		<p>
+			<?php echo $assign_history_out; ?>
+		</p>
+	</div>
+	<div id="assign-form">
+		<form method="post" action="assign.php">
+			<input type="hidden" name="asset_id" value="<?php echo $asset["id"]; ?>" />
 
-<h3>Device Assignments</h3>
-<div id="assign-history">
-	<p>
-		<?php echo $assign_history_out; ?>
-	</p>
-</div>
-<div id="assign-form">
-	<form method="post" action="assign.php">
-		<input type="hidden" name="asset_id" value="<?php echo $asset["id"]; ?>" />
+			<p>
+				<label for="assignment_type">Assignment Type</label>
+				<?php echo $types_dropdown_out; ?>
+			</p>
 
-		<p>
-			<label for="assignment_type">Assignment Type</label>
-			<?php echo $types_dropdown_out; ?>
-		</p>
-		
-		<p>
-			<label for="assigned_to">Assigned</label>
-			<select id="assigned_to" name="assigned_to"></select>
-		</p>
-		
-		<p>
-			<label for="user_descr">User Description</label>
-			<input type="text" name="user_descr" id="user_descr" value="" />
-		</p>
-		
-		<p>
-			<label for="assignment_start">Start Date</label>
-			<input type="text" name="assignment_start" id="assignment_start" value="" class=".form-control" />
-		</p>
-		
-		<p>
-			<label for="assignment_end">End Date</label>
-			<input type="text" name="assignment_end" id="assignment_end" value="" class=".form-control" />
-		</p>
-		
-<?php if($USER->is_admin){ ?>
-		<p>
-			<input type="submit" value="Save" />
-		</p>
-<?php } ?>
-	</form>
+			<p>
+				<label for="assigned_to">Assigned</label>
+				<select id="assigned_to" name="assigned_to"></select>
+			</p>
+
+			<p>
+				<label for="user_descr">User Description</label>
+				<input type="text" name="user_descr" id="user_descr" value="" />
+			</p>
+
+			<p>
+				<label for="assignment_start">Start Date</label>
+				<input type="text" name="assignment_start" id="assignment_start" value="" class=".form-control" />
+			</p>
+
+			<p>
+				<label for="assignment_end">End Date</label>
+				<input type="text" name="assignment_end" id="assignment_end" value="" class=".form-control" />
+			</p>
+
+	<?php if($USER->is_admin){ ?>
+			<p>
+				<input type="submit" value="Save" />
+			</p>
+	<?php } ?>
+		</form>
+	</div>
 </div>
+
 <script src="<?php echo $SITE->CFG->js; ?>assign.js"></script>
