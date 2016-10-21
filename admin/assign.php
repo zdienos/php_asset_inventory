@@ -21,14 +21,6 @@ if( (isset($USER->logged)) && ($USER->logged !== true) ){
 if(!empty($_POST)){
 	
 	$now = date("Y-m-d");
-	
-	if(!empty($_POST["submit"])){
-		echo "type: ".gettype($_POST["submit"])."\n";
-		var_dump($_POST);
-	} else {
-		echo "submit is not what u expect";
-	}
-	die();
 
 	if(!empty($_POST["id"]) && ($_POST["submit"] == "Update")){
 	
@@ -38,7 +30,7 @@ if(!empty($_POST)){
 		$values = array($_POST["assignment_type"],$_POST["assigned_to"], $_POST["user_descr"], $_POST["assignment_start"], $now, $_POST["id"]);
 		
 	} 
-	else if(!empty($_POST["id"]) && ($_POST["submit"] == "Unassigned")){
+	else if(!empty($_POST["id"]) && ($_POST["submit"] == "Unassign")){
 
 		die("unassigned");
 		// fill value for assignment_end
