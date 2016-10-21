@@ -25,6 +25,7 @@ if(!empty($_POST)){
 	if(!empty($_POST["id"]) && ($_POST["submit"] !== "Unassigned")){
 	
 		var_dump($_POST);
+		gettype($_POST["submit"]);
 		die("full update...");
 		// update assignment
 		$sql = "UPDATE asset_assignments SET assignment_type = ?, assigned_to = ?, user_descr = ?, assignment_start = ?, assignment_end = ? WHERE id = ?";
