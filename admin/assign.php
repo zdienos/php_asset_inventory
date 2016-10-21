@@ -33,7 +33,7 @@ if(!empty($_POST)){
 
 		// fill value for assignment_end
 		$sql = "UPDATE asset_assignments SET assignment_end = ? WHERE id = ?";
-		$value = array($now,$_POST["id"]);
+		$values = array($now,$_POST["id"]);
 
 	} else { // new assignment
 		
