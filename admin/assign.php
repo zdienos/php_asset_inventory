@@ -22,7 +22,7 @@ if(!empty($_POST)){
 	
 	$now = date("Y-m-d");
 	
-	if(!empty($_POST["id"]) && ($_POST["submit"] !== "Unassigned")){
+	if(!empty($_POST["id"]) && ($_POST["submit"] == "Update")){
 	
 		var_dump($_POST);
 		echo gettype($_POST["submit"]);
