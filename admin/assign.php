@@ -20,6 +20,8 @@ if( (isset($USER->logged)) && ($USER->logged !== true) ){
 // check for post
 if(!empty($_POST)){
 	
+	die(var_dump($_POST));
+	
 	$now = date("Y-m-d");
 	
 	if(!empty($_POST["id"])){
