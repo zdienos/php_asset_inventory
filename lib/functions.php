@@ -399,6 +399,7 @@ function get_assignments($asset_id){
 	$sql .= "asset_assignments.id, ";
 	$sql .= "asset_assignments.asset_id, ";
 	$sql .= "asset_assignment_types.type, ";
+	$sql .= "asset_assignments.user_descr, ";
 	$sql .= "CASE asset_assignments.assignment_type ";
 	$sql .= "	WHEN 1 then users.email ";
 	$sql .= "	WHEN 2 then departments.name ";
