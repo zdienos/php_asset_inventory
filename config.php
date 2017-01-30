@@ -2,7 +2,7 @@
 
 // TODO REVAMP totally to pull most of this from database
 
-require_once("secure.php");
+require_once("secure.php") or die("Couldn't include required file.");
 
 // set the $CFG global object
 unset($CFG);
@@ -31,11 +31,16 @@ $CFG->site_title = "KET IT Asset Inventory";
 
 // need to store these in an non web accessible place
 
-$CFG->dbtype = KET_ASSET_DBTYPE;
-$CFG->dbhost = KET_ASSET_DBHOST;
-$CFG->dbname = KET_ASSET_DBNAME;
-$CFG->dbuser = KET_ASSET_DBUSER;
-$CFG->dbpass = KET_ASSET_DBPASS;
+if(defined(KET_ASSET_DBTYPE) && defined(KET_ASSET_DBHOST) && defined(KET_ASSET_DBNAME) && defined(KET_ASSET_DBUSER) && defined(KET_ASSET_DBPASS) ){
+	$CFG->dbtype = KET_ASSET_DBTYPE;
+	$CFG->dbhost = KET_ASSET_DBHOST;
+	$CFG->dbname = KET_ASSET_DBNAME;
+	$CFG->dbuser = KET_ASSET_DBUSER;
+	$CFG->dbpass = KET_ASSET_DBPASS;
+} else {
+	die("Required constants undefined.");
+}
+
 
 // active directory stuffz
 $CFG->ldap_host = KET_ASSET_LDAP_HOST;
@@ -71,7 +76,7 @@ $CFG->css = $CFG->url."css/";
 $CFG->images = $CFG->url."images/";
 $CFG->js = $CFG->url."js/";
 
-	
+/*	
 //if($CFG->debug) {
 if(1==1) {
 	error_reporting(E_ALL); // Report all PHP errors (see changelog)
@@ -79,12 +84,13 @@ if(1==1) {
 } else { 
 	error_reporting(0);
 }
+*/
 
 // system core
 require_once("core.php");
-
+/*
 set_error_handler("custom_error_handler",E_USER_ERROR);
 set_error_handler("custom_error_handler",E_ERROR);
-
+*/
 
 // closing tag left off intentionally to avoid white space
