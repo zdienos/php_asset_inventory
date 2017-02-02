@@ -1,0 +1,7 @@
+#
+# The following things are still incomplete
+
+UI Improvements
+
+	- Delete option for assets
+	- Edit and delete options complete for Device assignments
