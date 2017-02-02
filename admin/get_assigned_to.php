@@ -20,7 +20,7 @@ if( isset($_GET['id']) ){
 
 switch($type_id){
 	case 1:
-		$sql = "SELECT id, email as name FROM users";
+		$sql = "SELECT id, CONCAT(first_name,' ',last_name) as name FROM users ORDER BY last_name ASC";
 		break;
 	case 2:
 		$sql = "SELECT id, name FROM departments";
