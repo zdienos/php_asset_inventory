@@ -491,4 +491,47 @@ function build_options_html($options,$label,$id = NULL){
     return $output;
 }
 
+
+
+/**
+ * process $data array into csv
+ * 
+ * returns csv string
+**/
+function generate_csv($data,$id_fld = NULL,$print_id = false){
+	$csv_header = "#,";
+	// build header
+	foreach($data[0] as $key => $value){
+		// check whether to include ID field
+		if($key == $id_fld && $print_id == false){
+			//$csv_header .= $key.",";
+		} elseif($key == $id_fld && $print_id == true){
+			$csv_header .= $key.",";
+		} elseif($key !== $id_fld && $print_id == false){
+			$csv_header .= $key.",";
+		}
+	}
+	$csv_header = substr($csv_header,0,(strlen($csv_header)-1)).PHP_EOL;
+	$users_count = 0;
+	$row_output = "";
+	// build rows
+	foreach($data as $row){
+		$users_count++;
+		$row_output .= $users_count.",";
+		foreach($row as $key => $value){
+			// check whether to include ID field
+			if($key == $id_fld && $print_id == false){
+			//$row_output .= $value.",";
+			} elseif($key == $id_fld && $print_id == true){
+				$row_output .= $value.",";
+			} elseif($key !== $id_fld && $print_id == false){
+				$row_output .= $value.",";
+			}
+		}
+		$row_output = substr($row_output,0,(strlen($row_output)-1)).PHP_EOL;
+	}
+	$output = $csv_header.$row_output;
+	return $output;
+}
+
 // closing tag left off intentionally to prevent white space
