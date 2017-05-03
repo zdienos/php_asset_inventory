@@ -66,8 +66,8 @@ if(!empty($_POST)){
 			<p>
 				<input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
 				<p>
-					<label for="rooms">Rooms</label>
-					<input type="text" name="rooms" id="rooms" class=".form-control" />
+					<label for="name">Rooms</label>
+					<input type="text" name="name" id="name" class=".form-control" />
 				</p>
 				<p>
 					<input type="submit" name="submit" value="Save" />
