@@ -1,7 +1,5 @@
 <?php
-
 // TODO REVAMP totally to pull most of this from database
-
 require_once("secure.php") or die("Couldn't include required file.");
 
 // set the $CFG global object
@@ -31,7 +29,7 @@ $CFG->site_title = "KET IT Asset Inventory";
 
 // need to store these in an non web accessible place
 
-if(defined(KET_ASSET_DBTYPE) && defined(KET_ASSET_DBHOST) && defined(KET_ASSET_DBNAME) && defined(KET_ASSET_DBUSER) && defined(KET_ASSET_DBPASS) ){
+if(defined('KET_ASSET_DBTYPE') && defined('KET_ASSET_DBHOST') && defined('KET_ASSET_DBNAME') && defined('KET_ASSET_DBUSER') && defined('KET_ASSET_DBPASS') ){
 	$CFG->dbtype = KET_ASSET_DBTYPE;
 	$CFG->dbhost = KET_ASSET_DBHOST;
 	$CFG->dbname = KET_ASSET_DBNAME;
