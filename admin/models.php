@@ -84,13 +84,11 @@ foreach($models as $model){
 	$models_output .= "</tr>\n";
 }
 
-
 $models_output .= "</table>\n";
 $models_output .= "</p>\n";
 $models_output .= "</div>\n";
 
 ?><?php require_once("../header.php");?>
-<p><?php echo $models_output; ?></p>
 <div id="models-form">
 	<fieldset>
 		<legend>New Model</legend>
@@ -112,4 +110,5 @@ $models_output .= "</div>\n";
 		</form>
 	</fieldset>
 </div>
+<p><?php echo $models_output; ?></p>
 <?php require_once("../footer.php");?>

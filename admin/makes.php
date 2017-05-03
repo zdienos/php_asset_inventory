@@ -78,7 +78,6 @@ $makes_output .= "</p>\n";
 $makes_output .= "</div>\n";
 
 ?><?php require_once("../header.php");?>
-<p><?php echo $makes_output; ?></p>
 <div id="makes-form">
 	<fieldset>
 		<legend>New Make</legend>
@@ -92,4 +91,5 @@ $makes_output .= "</div>\n";
 		</form>
 	</fieldset>
 </div>
+<p><?php echo $makes_output; ?></p>
 <?php require_once("../footer.php");?>
