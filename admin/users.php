@@ -48,7 +48,7 @@ if(!empty($_POST)){
 	$sql = "INSERT INTO $current_table ( $fields_list ) VALUES  ( ?, ?, ?, ? )";
 	try {
 		$stmt = $SITE->DB->prepare($sql);
-		$stmt->execute(array($_POST['model'],$_POST['make_id']));
+		$stmt->execute(array($_POST['username'],$_POST['first_name'],$_POST['last_name'],$_POST['email']));
 	} catch (Exception $e){
 		trigger_error($e->getMessage());
 	}
@@ -57,44 +57,11 @@ if(!empty($_POST)){
     
 }
 
-// build make options
-$makes = get_asset_makes();
-$makes_dropdown_out = "<select id='make_id' name='make_id' class='.form-control'>".PHP_EOL;
-$makes_dropdown_out .= "<option>Select Below</option>";
-foreach($makes as $make){
-    $makes_dropdown_out .= "<option value='".$make['id']."'";
-	if(((isset($asset)) && ($make['id'] === $asset['make_id'])) || ( (!empty($_POST['make_id'])) && ($_POST['make_id'] === $make['id']))){
-        $makes_dropdown_out .= " selected";
-    }
-    $makes_dropdown_out .= ">".$make['make']."</option>".PHP_EOL;
-}
-$makes_dropdown_out .= "</select>".PHP_EOL;
-
-// build model options
-$models = get_asset_models();
-$models_output = "<div id='models-list'>\n";
-$models_output .= "<p>\n";
-$models_output .= "<table class='admin-table'>\n";
-$models_output .= "<tr><th><strong>Total models in system: ".sizeof($models)."</strong></th></tr>\n";
-
-// build current models output
-foreach($models as $model){
-	$models_output .= "<tr>\n";
-	$models_output .= "<td>".$model["model"]."</td>";
-	$models_output .= "<td><a href='?action=del&id=".$model["id"]."' onclick=\"return confirm('Are you sure?')\"><span class='glyphicon glyphicon-remove'></span></a></td>\n";
-	$models_output .= "</tr>\n";
-}
-
-
-$models_output .= "</table>\n";
-$models_output .= "</p>\n";
-$models_output .= "</div>\n";
-
 ?><?php require_once("../header.php");?>
 <p><?php echo $models_output; ?></p>
-<div id="models-form">
+<div id="users-form">
 	<fieldset>
-		<legend>New Model</legend>
+		<legend>New User</legend>
 		<form method="post">
 			<p>
 				<input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
