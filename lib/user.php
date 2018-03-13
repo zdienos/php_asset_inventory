@@ -26,6 +26,12 @@ if( (isset($_SESSION['uzr']['logged'])) && (!empty($_SESSION['uzr']['logged'])) 
     $USER->key = base64_encode($session_id);
 }
 
+$USER->can_edit = FALSE;
+$USER->can_view = FALSE;
+$USER->is_admin = FALSE;
+$USER->is_allowed = FALSE;
+
+
 if(@$USER->session->groups){
 
 	// check for admin group
