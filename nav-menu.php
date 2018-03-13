@@ -12,6 +12,7 @@ if($USER->logged){
     $menu_output .= "\t\t\t<li><a href='".$SITE->CFG->url."index.php'>Home</a></li>".PHP_EOL;
     if($USER->is_admin){
         $menu_output .= "\t\t\t<li><a href='".$SITE->CFG->url."admin/edit.php'>New Asset</a></li>".PHP_EOL;
+		$menu_output .= "\t\t\t<li><a href='".$SITE->CFG->url."admin/users.php'>New User</a></li>".PHP_EOL;
         $menu_output .= "\t\t\t<li><a href='".$SITE->CFG->url."browse.php'>Browse</a></li>".PHP_EOL;
 		$menu_output .= "\t\t\t<li><a href='".$SITE->CFG->url."admin/index.php'>Admin</a></li>".PHP_EOL;
     }
