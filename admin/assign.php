@@ -59,6 +59,9 @@ if(!empty($_POST)){
 	return;
 }
 
+// grab assignments
+$assignments = get_assignments($asset["id"]);
+
 // build status options
 $types = get_assignment_types();
 $types_dropdown_out = "<select id='assignment_type' name='assignment_type' class='.form-control'>".PHP_EOL;
@@ -74,7 +77,6 @@ $types_dropdown_out .= "</select>".PHP_EOL;
 
 
 // build assignment history
-$assignments = get_assignments($asset["id"]);
 $assign_history_out = "<div id='assigned-list' class='assigned-list'>\n";
 $assign_history_out .= "<table class='table table-striped'>\n";
 $assign_history_out .= "<thead><tr><th>Type</th><th>Assigned</th><th>Note</th><th>Start</th><th>End</th><th>&nbsp;</th></tr></thead>\n";
