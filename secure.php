@@ -1,4 +1,7 @@
 <?php
+
+// intentionally blank for push processes
+
 define("KET_ASSET", true);
 define("KET_ASSET_DBTYPE", "mysql");
 define("KET_ASSET_DBHOST", "localhost");
