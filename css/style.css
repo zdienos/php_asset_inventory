@@ -14,7 +14,12 @@ body {
 }
 
 #nav-search {
-    float: right;
+    background: #fff;
+	color: #06b;
+    text-align: right;
+    top:0;
+    left:0;
+    display:none;
 }
 
 #nav-search input {
