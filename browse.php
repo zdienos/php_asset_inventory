@@ -18,7 +18,7 @@ $criteria = false;
 
 // check for post and validate
 if(!empty($_POST)){
-    
+
     // validate POST
     if( (isset($_POST["valid"])) && (!empty($_POST["valid"])) ){
         if($_POST["valid"] !== $USER->key){
@@ -30,15 +30,15 @@ if(!empty($_POST)){
         }
     } else {
         // possible hack attempt?
-        // TODO handle scenario        
+        // TODO handle scenario
         die("don't hack me bro");
     }
-    
+
 }
-	
+
 
 if($criteria !== false){
-    
+
     // TODO pagination page numbers
     //$page = 10 * $_REQUEST['pg'];
     $page = 0;
@@ -46,7 +46,7 @@ if($criteria !== false){
     // TODO pagination limit
     //$limit = $_POST['limit'];
     $limit = 10;
-    
+
     // build where clause
     $where_conditions = "";
     $where_values = array();
@@ -74,17 +74,17 @@ if($criteria !== false){
             $where_conditions .= $clause." AND ";
         }
     }
-    
+
     if(!empty($where_conditions)){
         $where_sql = " WHERE ".$where_conditions;
     }
-    
 
-    
+
+
 } else {
-    
+
     // no criteria just show last 10
-    
+
     // TODO pagination page numbers
     //$page = 10 * $_REQUEST['pg'];
     $page = 0;
@@ -92,7 +92,7 @@ if($criteria !== false){
     // TODO pagination limit
     //$limit = $_POST['limit'];
     $limit = 10;
-    
+
 }
 
 
@@ -117,15 +117,12 @@ if(!empty($_POST['sort'])){
     $sort = "DESC";
 }
 
-// lets limit 
+// lets limit
 $limit_sql = " LIMIT $page, $limit ";
 
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-
-
-
 
 
 // begin building SQL
@@ -141,14 +138,24 @@ $search_sql .= "asset_makes.make as 'Make', ";
 $search_sql .= "asset_models.model as 'Model', ";
 $search_sql .= "assets.service_tag as 'Service Tag', ";
 $search_sql .= "assets.purchase_date as 'Purchased', ";
-$search_sql .= "assets.surplus_date as 'Surplused' ";
+$search_sql .= "assets.surplus_date as 'Surplused', ";
+$search_sql .= "CASE asset_assignments.assignment_type ";
+$search_sql .= "	WHEN 1 then users.email ";
+$search_sql .= "	WHEN 2 then departments.name ";
+$search_sql .= "	WHEN 3 then rooms.name ";
+$search_sql .= "	WHEN 4 then projects.name ";
+$search_sql .= "END as assigned_to, ";
 
 $search_sql .= "FROM assets ";
 $search_sql .= "LEFT JOIN asset_types ON assets.type_id = asset_types.id ";
 $search_sql .= "LEFT JOIN asset_statuses ON assets.status_id = asset_statuses.id ";
 $search_sql .= "LEFT JOIN asset_models ON assets.model_id = asset_models.id ";
 $search_sql .= "LEFT JOIN asset_makes ON assets.make_id = asset_makes.id ";
-
+$search_sql .= "LEFT JOIN asset_assignment_types ON asset_assignment_types.id = asset_assignments.assignment_type ";
+$search_sql .= "LEFT JOIN departments ON asset_assignments.assigned_to = departments.id ";
+$search_sql .= "LEFT JOIN users ON asset_assignments.assigned_to = users.id ";
+$search_sql .= "LEFT JOIN rooms ON asset_assignments.assigned_to = rooms.id ";
+$search_sql .= "LEFT JOIN projects ON asset_assignments.assigned_to = projects.id ";
 $search_sql .= $where_sql;
 
 // TODO order sql
@@ -188,7 +195,7 @@ if($SITE->error->has_errors()){
 			echo "<p>$search_sql</p>";
 		}
 	}
-    
+
 }
 
 
