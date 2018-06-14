@@ -3,6 +3,8 @@
     <span>
         <label>Asset Tag</label>
         <input type="text" id="asset_tag" name="asset_tag" value="<?php echo $asset_tag; ?>" class=".form-control" />
-        <input type="submit" value="->">
+        <input type="submit" value="" id="nav-search-button" class="btn btn-default" aria-label="Left Align">
+            <span style="font-size:16px" class="glyphicon glyphicon-arrow-right"></span>
+        </input>
     </span>
 </form>
