@@ -1,6 +1,6 @@
 <?php
 // TODO REVAMP totally to pull most of this from database
-require_once("secure.php") or die("Couldn't include required file.");
+require_once("secure.php");
 
 // set the $CFG global object
 unset($CFG);
@@ -22,7 +22,7 @@ if( $CFG->ostype == "Linux" || $CFG->ostype == "FreeBSD" || $CFG->ostype == "Uni
 	$CFG->sep = "/";
 } else {
 	$CFG->sep = "\\";
-}    
+}
 
 // set configurations
 $CFG->site_title = "KET IT Asset Inventory";
@@ -74,12 +74,12 @@ $CFG->css = $CFG->url."css/";
 $CFG->images = $CFG->url."images/";
 $CFG->js = $CFG->url."js/";
 
-/*	
+/*
 //if($CFG->debug) {
 if(1==1) {
 	error_reporting(E_ALL); // Report all PHP errors (see changelog)
 	ini_set('error_reporting', E_ALL);
-} else { 
+} else {
 	error_reporting(0);
 }
 */
