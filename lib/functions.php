@@ -10,7 +10,7 @@
 **/
 
 function custom_error_handler($errno, $errstr, $errfile, $errline) {
-    
+
     global $SITE;
 
     switch ($errno) {
@@ -176,18 +176,18 @@ function checkGroup($ad, $userdn, $groupdn) {
 function checkGroupEx($ad, $userdn, $groupdn) {
     $attributes = array('memberof');
     $result = ldap_read($ad, $userdn, '(objectclass=*)', $attributes);
-    if ($result === FALSE) { 
-        return FALSE; 
+    if ($result === FALSE) {
+        return FALSE;
     }
     $entries = ldap_get_entries($ad, $result);
     if ($entries['count'] <= 0) {
-        return FALSE; 
+        return FALSE;
     }
     if (empty($entries[0]['memberof'])) {
-        return FALSE; 
+        return FALSE;
     } else {
         for ($i = 0; $i < $entries[0]['memberof']['count']; $i++) {
-            if ($entries[0]['memberof'][$i] == $groupdn) { 
+            if ($entries[0]['memberof'][$i] == $groupdn) {
                 return TRUE;
             } elseif (checkGroupEx($ad, $entries[0]['memberof'][$i], $groupdn)) {
                 return TRUE;
@@ -408,17 +408,17 @@ function get_assignments($asset_id){
 	$sql .= "END as assigned_to, ";
 	$sql .= "assignment_start, ";
 	$sql .= "assignment_end ";
-	
+
 	$sql .= "FROM asset_assignments ";
 	$sql .= "LEFT JOIN asset_assignment_types ON asset_assignment_types.id = asset_assignments.assignment_type ";
 	$sql .= "LEFT JOIN departments ON asset_assignments.assigned_to = departments.id ";
 	$sql .= "LEFT JOIN users ON asset_assignments.assigned_to = users.id ";
 	$sql .= "LEFT JOIN rooms ON asset_assignments.assigned_to = rooms.id ";
 	$sql .= "LEFT JOIN projects ON asset_assignments.assigned_to = projects.id ";
-	
+
 	$sql .= "WHERE ";
 	$sql .= "asset_assignments.asset_id = ?";
-		
+
 	$stmt = $SITE->DB->prepare($sql);
 	$stmt->execute(array($asset_id));
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -429,6 +429,46 @@ function get_assignments($asset_id){
 	}
 	return $data;
 }
+
+function get_assigned($asset_id){
+	global $SITE;
+	$sql = "SELECT ";
+	$sql .= "asset_assignments.id, ";
+	$sql .= "asset_assignments.asset_id, ";
+	$sql .= "asset_assignment_types.type, ";
+	$sql .= "asset_assignments.user_descr, ";
+	$sql .= "CASE asset_assignments.assignment_type ";
+	$sql .= "	WHEN 1 then users.email ";
+	$sql .= "	WHEN 2 then departments.name ";
+	$sql .= "	WHEN 3 then rooms.name ";
+	$sql .= "	WHEN 4 then projects.name ";
+	$sql .= "END as assigned_to, ";
+	$sql .= "assignment_start, ";
+	$sql .= "assignment_end ";
+
+	$sql .= "FROM asset_assignments ";
+	$sql .= "LEFT JOIN asset_assignment_types ON asset_assignment_types.id = asset_assignments.assignment_type ";
+	$sql .= "LEFT JOIN departments ON asset_assignments.assigned_to = departments.id ";
+	$sql .= "LEFT JOIN users ON asset_assignments.assigned_to = users.id ";
+	$sql .= "LEFT JOIN rooms ON asset_assignments.assigned_to = rooms.id ";
+	$sql .= "LEFT JOIN projects ON asset_assignments.assigned_to = projects.id ";
+
+	$sql .= "WHERE ";
+	$sql .= "asset_assignments.asset_id = ? ";
+    $sql .= "ORDER BY asset_assignments.assignment_start DESC ";
+    $sql .= "LIMIT 0,1 ";
+
+	$stmt = $SITE->DB->prepare($sql);
+	$stmt->execute(array($asset_id));
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if(sizeof($results) < 1){
+		return false;
+	} else {
+		$data = $results;
+	}
+	return $data;
+}
+
 
 /*
 function get_assignments($asset_id){
@@ -455,7 +495,7 @@ function get_assignments($asset_id){
 	$sql .= "LEFT JOIN rooms ON asset_assignment_details.assigned_to = rooms.id ";
 	$sql .= "LEFT JOIN projects ON asset_assignment_details.assigned_to = projects.id ";
 	$sql .= "WHERE assets.id = ?";
-	
+
 	$result = $SITE->DB->query($sql);
 	$count = $result->rowCount();
 	if($count > 0){
@@ -495,7 +535,7 @@ function build_options_html($options,$label,$id = NULL){
 
 /**
  * process $data array into csv
- * 
+ *
  * returns csv string
 **/
 function generate_csv($data,$id_fld = NULL,$print_id = false){
