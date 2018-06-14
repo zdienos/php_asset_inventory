@@ -71,6 +71,9 @@ $users_dropdown_output = "<select id='user_id' name='user_id' class='.form-contr
 $users_dropdown_output .= "<option>Select Below</option>";
 foreach($users as $uzr){
     $users_dropdown_output .= "<option value='".$uzr['id']."'";
+    if(((isset($asset)) && ($uzr['id'] === $asset['user_id'])) || ( (!empty($_POST['user_id'])) && ($_POST['user_id'] === $uzr['id']))){
+        $users_dropdown_output .= " selected";
+    }
     $users_dropdown_output .= ">".$uzr['name']."</option>".PHP_EOL;
 }
 $users_dropdown_output .= "</select>".PHP_EOL;
