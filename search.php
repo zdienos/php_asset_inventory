@@ -70,7 +70,7 @@ $users_dropdown_output = "<select id='user_id' name='user_id' class='.form-contr
 //$models_dropdown_output .= "<option>Pick Make First</option>";
 $users_dropdown_output .= "<option>Select Below</option>";
 foreach($users as $uzr){
-    $users_dropdown_output .= "<option value='".$users['id']."'";
+    $users_dropdown_output .= "<option value='".$uzr['id']."'";
     $users_dropdown_output .= ">".$uzr['name']."</option>".PHP_EOL;
 }
 $users_dropdown_output .= "</select>".PHP_EOL;
