@@ -84,7 +84,7 @@ $users_dropdown_output .= "</select>".PHP_EOL;
 				<input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
                 <p>
 					<label>User</label>
-					<?php echo $makes_dropdown_out; ?>
+					<?php echo $users_dropdown_out; ?>
 				</p>
 				<p>
 					<label>Type</label>
