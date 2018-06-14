@@ -53,7 +53,7 @@ if($criteria !== false){
 
     // build where array
     foreach($_POST as $key => $value){
-        if( ($key !== "valid") && (!empty($value)) && ($value !== 'Select Below') ){
+        if( ($key !== "valid") && ($key !== "user_id") && (!empty($value)) && ($value !== 'Select Below') ){
 			$where_values[] = " assets.$key LIKE '%$value%' ";
         } else if( ($key == "user_id") && (!empty($value)) && ($value !== 'Select Below') ){
 			$where_values[] = " asset_assignments.$key LIKE '%$value%' ";
