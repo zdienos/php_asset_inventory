@@ -1,4 +1,4 @@
-<form action="browse.php" method="post" role="form">
+<form action="/browse.php" method="post" role="form">
     <input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
     <span>
         <label>Asset Tag</label>
