@@ -13,6 +13,14 @@ body {
 /*	border-bottom: solid 1px #06b;*/
 }
 
+#nav-search {
+    float: right;
+}
+
+#nav-search input {
+    color: #000;
+}
+
 #header h3 {
     float:left;
     padding: 0.5em;
@@ -43,7 +51,7 @@ body {
 }
 
 #nav-menu-links li {
-    
+
 }
 
 #content-wrap {

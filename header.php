@@ -30,9 +30,9 @@
 	<div class="container" class="container-fluid">
         <div id="header">
             <h3>KET Asset Inventory</h3>
-
-            <?php include("nav-search.php"); ?>
-
+            <div id="nav-search">
+                <?php include("nav-search.php"); ?>
+            </div>
             <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
                 <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
             </button>
