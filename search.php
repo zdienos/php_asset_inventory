@@ -11,11 +11,11 @@ $types_dropdown_output = "<select id='type_id' name='type_id' class='.form-contr
 $types_dropdown_output .= "<option>Select Below</option>";
 foreach($types as $type){
     $types_dropdown_output .= "<option value='".$type['id']."'";
-	
+
     if(((isset($asset)) && ($type['id'] === $asset['type_id'])) || ( (!empty($_POST['type_id'])) && ($_POST['type_id'] === $type['id']))){
         $types_dropdown_output .= " selected";
     }
-	
+
     $types_dropdown_output .= ">".$type['type']."</option>".PHP_EOL;
 }
 $types_dropdown_output .= "</select>".PHP_EOL;
@@ -63,6 +63,18 @@ foreach($models as $model){
 }
 $models_dropdown_output .= "</select>".PHP_EOL;
 
+
+// build user options
+$users = get_users();
+$users_dropdown_output = "<select id='user_id' name='user_id' class='.form-control'>".PHP_EOL;
+//$models_dropdown_output .= "<option>Pick Make First</option>";
+$users_dropdown_output .= "<option>Select Below</option>";
+foreach($users as $uzr){
+    $users_dropdown_output .= "<option value='".$users['id']."'";
+    $users_dropdown_output .= ">".$uzr['name']."</option>".PHP_EOL;
+}
+$users_dropdown_output .= "</select>".PHP_EOL;
+
 ?>
 <fieldset>
 	<legend>Search Options</legend>
@@ -70,6 +82,10 @@ $models_dropdown_output .= "</select>".PHP_EOL;
 		<form action="browse.php" method="post" role="form">
 			<div class="form-group">
 				<input type="hidden" name="valid" value="<?php echo $USER->key; ?>" />
+                <p>
+					<label>User</label>
+					<?php echo $makes_dropdown_out; ?>
+				</p>
 				<p>
 					<label>Type</label>
 					<?php echo $types_dropdown_output; ?>
@@ -101,7 +117,7 @@ $models_dropdown_output .= "</select>".PHP_EOL;
 				<p>
 					<input type="submit" value="Go">
 				</p>
-			</div>	
+			</div>
 		</form>
 	</div>
 </fieldset>

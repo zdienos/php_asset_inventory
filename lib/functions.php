@@ -311,6 +311,17 @@ function generate_html_table($data,$id_fld = NULL,$print_id = false){
     return $output;
 }
 
+function get_users(){
+    global $SITE;
+    $sql = "SELECT id, CONCAT(first_name,' ',last_name) as name FROM users ORDER BY last_name ASC";
+    $result = $SITE->DB->query($sql);
+	$count = $result->rowCount();
+    if($count > 0){
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
 
 function get_asset_types(){
     global $SITE;
