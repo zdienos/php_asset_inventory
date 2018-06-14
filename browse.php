@@ -151,7 +151,7 @@ $search_sql .= "LEFT JOIN asset_types ON assets.type_id = asset_types.id ";
 $search_sql .= "LEFT JOIN asset_statuses ON assets.status_id = asset_statuses.id ";
 $search_sql .= "LEFT JOIN asset_models ON assets.model_id = asset_models.id ";
 $search_sql .= "LEFT JOIN asset_makes ON assets.make_id = asset_makes.id ";
-$search_sql .= "LEFT JOIN asset_assignment ON assets.id = asset_assignment.asset_id ";
+$search_sql .= "LEFT JOIN asset_assignments ON assets.id = asset_assignments.asset_id ";
 $search_sql .= "LEFT JOIN asset_assignment_types ON asset_assignment_types.id = asset_assignments.assignment_type ";
 $search_sql .= "LEFT JOIN departments ON asset_assignments.assigned_to = departments.id ";
 $search_sql .= "LEFT JOIN users ON asset_assignments.assigned_to = users.id ";
