@@ -193,9 +193,7 @@ if($SITE->error->has_errors()){
 		echo "<h3>No results found</h3>";
 		if($SITE->CFG->debug){
 			echo "<p>$search_sql</p>";
-		} else {
-            echo "<!--$search_sql-->";
-        }
+		}
 	}
 
 }
