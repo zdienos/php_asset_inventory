@@ -28,7 +28,7 @@ if( (!empty($_GET['action'])) && ( $_GET['action'] == 'del' ) && (!empty($_GET['
 
 // check for post and validate
 if(!empty($_POST)){
-    
+
     // validate POST
     if( (isset($_POST["valid"])) && (!empty($_POST["valid"])) ){
         if($_POST["valid"] !== $USER->key){
@@ -38,12 +38,12 @@ if(!empty($_POST)){
         }
     } else {
         // possible hack attempt?
-        // TODO handle scenario        
+        // TODO handle scenario
         die("<!-- don't hack me bro -->");
     }
-	
+
 	// all appears clear insert value
-	
+
 	$sql = "INSERT INTO $current_table ( make ) VALUES  ( ? )";
 	try {
 		$stmt = $SITE->DB->prepare($sql);
@@ -51,9 +51,9 @@ if(!empty($_POST)){
 	} catch (Exception $e){
 		trigger_error($e->getMessage());
 	}
-	
+
 	header("Location: ".$SITE->CFG->url."admin\\".basename(__FILE__));
-    
+
 }
 
 
@@ -62,7 +62,7 @@ $makes = get_asset_makes();
 $makes_output = "<div id='makes-list'>\n";
 $makes_output .= "<p>\n";
 $makes_output .= "<table class='admin-table'>\n";
-$makes_output .= "<tr><th><strong>Total models in system: ".sizeof($makes)."</strong></th></tr>\n";
+$makes_output .= "<tr><th><strong>Total makes in system: ".sizeof($makes)."</strong></th></tr>\n";
 
 // build current makes output
 foreach($makes as $make){
