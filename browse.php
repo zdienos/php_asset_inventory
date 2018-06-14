@@ -56,7 +56,7 @@ if($criteria !== false){
         if( ($key !== "valid") && ($key !== "user_id") && (!empty($value)) && ($value !== 'Select Below') ){
 			$where_values[] = " assets.$key LIKE '%$value%' ";
         } else if( ($key == "user_id") && (!empty($value)) && ($value !== 'Select Below') ){
-			$where_values[] = " asset_assignments.assigned_to LIKE '%$value%' ";
+			$where_values[] = " asset_assignments.assigned_to = '$value' ";
         }
 
 /*
