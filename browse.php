@@ -144,7 +144,7 @@ $search_sql .= "	WHEN 1 then users.email ";
 $search_sql .= "	WHEN 2 then departments.name ";
 $search_sql .= "	WHEN 3 then rooms.name ";
 $search_sql .= "	WHEN 4 then projects.name ";
-$search_sql .= "END as assigned_to, ";
+$search_sql .= "END as assigned_to ";
 
 $search_sql .= "FROM assets ";
 $search_sql .= "LEFT JOIN asset_types ON assets.type_id = asset_types.id ";
