@@ -30,6 +30,10 @@ body {
     font-weight: bolder;
 }
 
+#header-logo {
+    float:left;
+}
+
 #nav-toggle-button {
     float:right;
     margin: 0.5em;
