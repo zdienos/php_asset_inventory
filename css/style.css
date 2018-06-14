@@ -14,11 +14,9 @@ body {
 }
 
 #nav-search {
-    background: #fff;
-	color: #06b;
-    text-align: right;
-    top:0;
-    left:0;
+    float: right;
+    margin: 0.5em;
+    padding: 0.5em;
 }
 
 #nav-search input {
