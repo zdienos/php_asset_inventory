@@ -29,7 +29,8 @@
 <body>
 	<div class="container" class="container-fluid">
         <div id="header">
-            <h3>KET Asset Inventory</h3>
+            <a href="/"><img src="https://www.ket.org/wp-content/uploads/2016/01/ket-w-t-75px.gif" /></a>
+            <h3>Asset Inventory</h3>
             <button id="nav-toggle-button" type="button" class="btn btn-default" aria-label="Left Align">
                 <span style="font-size:16px" class="glyphicon glyphicon-menu-hamburger"></span>
             </button>
